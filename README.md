@@ -1,2 +1,3 @@
-# data_structures_and_algorithms
-Contains various data structures and algorithms I use when leetcoding
+# Data Structures and Algorithms
+
+Currently is in development, more info later
