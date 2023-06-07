@@ -1,0 +1,36 @@
+package data_structures
+
+type DoublyLinkedListNode[T any] struct {
+	val  T
+	prev *DoublyLinkedListNode[T]
+	next *DoublyLinkedListNode[T]
+}
+
+func NewDoublyLinkedListNode[T any](val T) *DoublyLinkedListNode[T] {
+	return &DoublyLinkedListNode[T]{
+		val: val,
+	}
+}
+
+func NewSentinelDoublyLinkedListNode[T any]() *DoublyLinkedListNode[T] {
+	return &DoublyLinkedListNode[T]{
+		val: *new(T),
+	}
+}
+
+func NewDoublyLinkedList[T any](arr []T) (*DoublyLinkedListNode[T], *DoublyLinkedListNode[T]) {
+	headSentinel := NewSentinelDoublyLinkedListNode[T]()
+	tailSentinel := NewSentinelDoublyLinkedListNode[T]()
+	headSentinel.next, tailSentinel.prev = tailSentinel, headSentinel
+
+	cur := headSentinel
+	for _, e := range arr {
+		newNode := NewDoublyLinkedListNode[T](e)
+		newNode.prev, newNode.next = cur, cur.next
+		cur.next, cur.next.prev = newNode, newNode
+
+		cur = cur.next
+	}
+
+	return headSentinel, tailSentinel
+}
