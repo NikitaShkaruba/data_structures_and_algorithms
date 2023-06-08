@@ -1,31 +1,31 @@
 package data_structures
 
 type Queue[T any] struct {
-	arr []T
+	deque *Deque[T]
 }
 
 func NewQueue[T any]() *Queue[T] {
-	return &Queue[T]{}
+	return &Queue[T]{
+		deque: NewDeque[T](),
+	}
 }
 
-func (s *Queue[T]) Enqueue(value T) {
-	s.arr = append(s.arr, value)
+func (q *Queue[T]) Enqueue(val T) {
+	q.deque.PushBack(val)
 }
 
-func (s *Queue[T]) Dequeue() T {
-	val := s.arr[0]
-	s.arr = s.arr[1:]
-	return val
+func (q *Queue[T]) Dequeue() T {
+	return q.deque.PopFront()
 }
 
-func (s *Queue[T]) PeekFirst() T {
-	return s.arr[0]
+func (q *Queue[T]) PeekFirst() T {
+	return q.deque.PeekFront()
 }
 
-func (s *Queue[T]) PeekLast() T {
-	return s.arr[len(s.arr)-1]
+func (q *Queue[T]) PeekLast() T {
+	return q.deque.PeekBack()
 }
 
-func (s *Queue[T]) GetSize() int {
-	return len(s.arr)
+func (q *Queue[T]) GetSize() int {
+	return q.deque.GetSize()
 }
