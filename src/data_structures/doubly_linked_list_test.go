@@ -6,14 +6,24 @@ import (
 )
 
 func TestNewDoublyLinkedListNode(t *testing.T) {
-	node := NewDoublyLinkedListNode(1)
+	node := NewDoublyLinkedListNode(
+		1,
+		&DoublyLinkedListNode[int]{
+			val: 2,
+		},
+		&DoublyLinkedListNode[int]{
+			val: 3,
+		},
+	)
 	assert.Equal(t, 1, node.val)
-	assert.Nil(t, node.next)
+	assert.Equal(t, 2, node.prev.val)
+	assert.Equal(t, 3, node.next.val)
 }
 
 func TestNewSentinelDoublyLinkedListNode(t *testing.T) {
 	node := NewSentinelDoublyLinkedListNode[int]()
 	assert.Equal(t, 0, node.val)
+	assert.Nil(t, node.prev)
 	assert.Nil(t, node.next)
 }
 

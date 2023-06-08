@@ -6,9 +6,11 @@ type DoublyLinkedListNode[T any] struct {
 	next *DoublyLinkedListNode[T]
 }
 
-func NewDoublyLinkedListNode[T any](val T) *DoublyLinkedListNode[T] {
+func NewDoublyLinkedListNode[T any](val T, prev *DoublyLinkedListNode[T], next *DoublyLinkedListNode[T]) *DoublyLinkedListNode[T] {
 	return &DoublyLinkedListNode[T]{
-		val: val,
+		val:  val,
+		prev: prev,
+		next: next,
 	}
 }
 
@@ -25,8 +27,7 @@ func NewDoublyLinkedList[T any](arr []T) (*DoublyLinkedListNode[T], *DoublyLinke
 
 	cur := headSentinel
 	for _, e := range arr {
-		newNode := NewDoublyLinkedListNode[T](e)
-		newNode.prev, newNode.next = cur, cur.next
+		newNode := NewDoublyLinkedListNode[T](e, cur, cur.next)
 		cur.next, cur.next.prev = newNode, newNode
 
 		cur = cur.next
