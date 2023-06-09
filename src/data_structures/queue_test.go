@@ -5,8 +5,23 @@ import (
 	"testing"
 )
 
+func TestQueue_NewEmpty(t *testing.T) {
+	q := NewEmptyQueue[int]()
+	assert.Equal(t, 0, q.GetSize())
+}
+
+func TestQueue_NewFromArray(t *testing.T) {
+	d := NewQueueFromArray([]int{1, 2, 3})
+
+	assert.Equal(t, 3, d.GetSize())
+
+	assert.Equal(t, 1, d.Dequeue())
+	assert.Equal(t, 2, d.Dequeue())
+	assert.Equal(t, 3, d.Dequeue())
+}
+
 func TestQueue_EnqueueDequeue(t *testing.T) {
-	q := NewQueue[int]()
+	q := NewEmptyQueue[int]()
 
 	q.Enqueue(1)
 	q.Enqueue(2)
@@ -18,7 +33,7 @@ func TestQueue_EnqueueDequeue(t *testing.T) {
 }
 
 func TestQueue_Peek(t *testing.T) {
-	q := NewQueue[int]()
+	q := NewEmptyQueue[int]()
 
 	q.Enqueue(1)
 	assert.Equal(t, 1, q.PeekFirst())
@@ -34,7 +49,7 @@ func TestQueue_Peek(t *testing.T) {
 }
 
 func TestQueue_GetSize(t *testing.T) {
-	q := NewQueue[int]()
+	q := NewEmptyQueue[int]()
 
 	assert.Equal(t, 0, q.GetSize())
 
@@ -50,19 +65,19 @@ func TestQueue_GetSize(t *testing.T) {
 }
 
 func TestQueue_DifferentGenericTypes(t *testing.T) {
-	intStack := NewQueue[int]()
+	intStack := NewEmptyQueue[int]()
 	intStack.Enqueue(1)
 	assert.Equal(t, 1, intStack.Dequeue())
 
-	floatStack := NewQueue[float64]()
+	floatStack := NewEmptyQueue[float64]()
 	floatStack.Enqueue(1.0)
 	assert.Equal(t, 1.0, floatStack.Dequeue())
 
-	stringStack := NewQueue[string]()
+	stringStack := NewEmptyQueue[string]()
 	stringStack.Enqueue("test")
 	assert.Equal(t, "test", stringStack.Dequeue())
 
-	boolStack := NewQueue[bool]()
+	boolStack := NewEmptyQueue[bool]()
 	boolStack.Enqueue(true)
 	assert.Equal(t, true, boolStack.Dequeue())
 
@@ -70,7 +85,7 @@ func TestQueue_DifferentGenericTypes(t *testing.T) {
 		name string
 		age  int
 	}
-	customStructStack := NewQueue[person]()
+	customStructStack := NewEmptyQueue[person]()
 	customStructStack.Enqueue(person{"test", 123})
 	assert.Equal(t, person{"test", 123}, customStructStack.Dequeue())
 }
