@@ -4,16 +4,20 @@ import "container/heap"
 
 //////////////////////// Indexed Heap ////////////////////////
 
+// IndexedHeap is almost identical to Heap, but allows to remove elements by value for O(logn) time, O(1) space.
+// Also, it doesn't spend memory for storing duplicate values.
 type IndexedHeap[T comparable] struct {
 	adapter     *stdlibIndexedHeapAdapter[T]
 	valueCounts map[T]int
 	size        int
 }
 
-func NewIndexedHeap[T comparable](comparator func(a, b T) bool) *IndexedHeap[T] {
+// NewEmptyIndexedHeap works in O(1) time, O(1) space
+func NewEmptyIndexedHeap[T comparable](comparator func(a, b T) bool) *IndexedHeap[T] {
 	return NewIndexedHeapFromArray(make([]T, 0), comparator)
 }
 
+// NewIndexedHeapFromArray works in O(n) time, O(n) space
 func NewIndexedHeapFromArray[T comparable](arr []T, comparator func(a, b T) bool) *IndexedHeap[T] {
 	uniqueValues := make([]T, 0)
 	valueCounts := make(map[T]int)
@@ -25,12 +29,13 @@ func NewIndexedHeapFromArray[T comparable](arr []T, comparator func(a, b T) bool
 	}
 
 	return &IndexedHeap[T]{
-		adapter:     newStdlibIndexedHeapAdapterFromArray(uniqueValues, comparator),
+		adapter:     newStdlibIndexedHeapAdapter(uniqueValues, comparator),
 		valueCounts: valueCounts,
 		size:        len(arr),
 	}
 }
 
+// Push works in O(logn) time, O(1) space
 func (h *IndexedHeap[T]) Push(val T) {
 	if h.valueCounts[val] == 0 {
 		heap.Push(h.adapter, val)
@@ -40,6 +45,7 @@ func (h *IndexedHeap[T]) Push(val T) {
 	h.size++
 }
 
+// Pop works in O(logn) time, O(1) space
 func (h *IndexedHeap[T]) Pop() T {
 	val := h.adapter.Peek().(T)
 
@@ -54,10 +60,12 @@ func (h *IndexedHeap[T]) Pop() T {
 	return val
 }
 
+// Peek works in O(logn) time, O(1) space
 func (h *IndexedHeap[T]) Peek() T {
 	return h.adapter.Peek().(T)
 }
 
+// RemoveByValue works in O(logn) time, O(1) space
 func (h *IndexedHeap[T]) RemoveByValue(val T) bool {
 	if h.valueCounts[val] == 0 {
 		return false
@@ -74,19 +82,23 @@ func (h *IndexedHeap[T]) RemoveByValue(val T) bool {
 	return true
 }
 
+// GetSize works in O(1) time, O(1) space
 func (h *IndexedHeap[T]) GetSize() int {
 	return h.size
 }
 
 //////////////////////// Stdlib Indexed Heap Adapter ////////////////////////
 
+// stdlibIndexedHeapAdapter is needed to not implement the whole heap yourself.
+// std library has a semi-convenient (not) interface that does all the dirty work for you.
+// I don't like it at all, but it works.
 type stdlibIndexedHeapAdapter[T comparable] struct {
 	values       []T
 	valueIndexes map[T]int
 	comparator   func(i, j T) bool
 }
 
-func newStdlibIndexedHeapAdapterFromArray[T comparable](arr []T, comparator func(a, b T) bool) *stdlibIndexedHeapAdapter[T] {
+func newStdlibIndexedHeapAdapter[T comparable](arr []T, comparator func(a, b T) bool) *stdlibIndexedHeapAdapter[T] {
 	valueIndexes := make(map[T]int)
 	for i := range arr {
 		valueIndexes[arr[i]] = i

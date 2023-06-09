@@ -5,8 +5,8 @@ import (
 	"testing"
 )
 
-func TestIndexedHeap_New(t *testing.T) {
-	h := NewIndexedHeap[int](func(a, b int) bool {
+func TestIndexedHeap_NewEmpty(t *testing.T) {
+	h := NewEmptyIndexedHeap[int](func(a, b int) bool {
 		return a < b
 	})
 
@@ -25,7 +25,7 @@ func TestIndexedHeap_NewFromArray(t *testing.T) {
 }
 
 func TestIndexedHeap_PushPopMax(t *testing.T) {
-	h := NewIndexedHeap[int](func(a, b int) bool {
+	h := NewEmptyIndexedHeap[int](func(a, b int) bool {
 		return a > b
 	})
 
@@ -39,7 +39,7 @@ func TestIndexedHeap_PushPopMax(t *testing.T) {
 }
 
 func TestIndexedHeap_PushPopMin(t *testing.T) {
-	h := NewIndexedHeap[int](func(a, b int) bool {
+	h := NewEmptyIndexedHeap[int](func(a, b int) bool {
 		return a < b
 	})
 
@@ -92,7 +92,7 @@ func TestIndexedHeap_RemoveByValue(t *testing.T) {
 }
 
 func TestIndexedHeap_GetSize(t *testing.T) {
-	h := NewIndexedHeap[int](func(a, b int) bool {
+	h := NewEmptyIndexedHeap[int](func(a, b int) bool {
 		return a < b
 	})
 
