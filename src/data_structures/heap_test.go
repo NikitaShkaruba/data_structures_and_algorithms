@@ -52,6 +52,20 @@ func TestHeap_PushPopMin(t *testing.T) {
 	assert.Equal(t, 12, h.Pop())
 }
 
+func TestHeap_Peek(t *testing.T) {
+	h := NewHeapFromArray([]int{12, 4, 8}, func(a, b int) bool {
+		return a < b
+	})
+
+	assert.Equal(t, 4, h.Peek())
+
+	h.Pop()
+	assert.Equal(t, 8, h.Peek())
+
+	h.Pop()
+	assert.Equal(t, 12, h.Peek())
+}
+
 func TestHeap_GetSize(t *testing.T) {
 	h := NewEmptyHeap[int](func(a, b int) bool {
 		return a < b

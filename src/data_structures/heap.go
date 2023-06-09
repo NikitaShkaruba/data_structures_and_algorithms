@@ -35,6 +35,11 @@ func (h *Heap[T]) Pop() T {
 	return heap.Pop(h.adapter).(T)
 }
 
+// Peek works in O(1) time, O(1) space
+func (h *Heap[T]) Peek() T {
+	return h.adapter.Peek().(T)
+}
+
 // GetSize works in O(1) time, O(1) space
 func (h *Heap[T]) GetSize() int {
 	return h.adapter.Len()
