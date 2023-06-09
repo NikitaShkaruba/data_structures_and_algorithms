@@ -6,7 +6,7 @@ import (
 )
 
 func TestStack_PushPop(t *testing.T) {
-	s := NewStack[int]()
+	s := NewEmptyStack[int]()
 
 	s.Push(1)
 	s.Push(2)
@@ -18,7 +18,7 @@ func TestStack_PushPop(t *testing.T) {
 }
 
 func TestStack_Peek(t *testing.T) {
-	s := NewStack[int]()
+	s := NewEmptyStack[int]()
 
 	s.Push(1)
 	assert.Equal(t, 1, s.Peek())
@@ -31,7 +31,7 @@ func TestStack_Peek(t *testing.T) {
 }
 
 func TestStack_GetSize(t *testing.T) {
-	s := NewStack[int]()
+	s := NewEmptyStack[int]()
 
 	s.Push(1)
 	assert.Equal(t, 1, s.GetSize())
@@ -47,19 +47,19 @@ func TestStack_GetSize(t *testing.T) {
 }
 
 func TestStack_DifferentGenericTypes(t *testing.T) {
-	intStack := NewStack[int]()
+	intStack := NewEmptyStack[int]()
 	intStack.Push(1)
 	assert.Equal(t, 1, intStack.Pop())
 
-	floatStack := NewStack[float64]()
+	floatStack := NewEmptyStack[float64]()
 	floatStack.Push(1.0)
 	assert.Equal(t, 1.0, floatStack.Pop())
 
-	stringStack := NewStack[string]()
+	stringStack := NewEmptyStack[string]()
 	stringStack.Push("test")
 	assert.Equal(t, "test", stringStack.Pop())
 
-	boolStack := NewStack[bool]()
+	boolStack := NewEmptyStack[bool]()
 	boolStack.Push(true)
 	assert.Equal(t, true, boolStack.Pop())
 
@@ -67,7 +67,7 @@ func TestStack_DifferentGenericTypes(t *testing.T) {
 		name string
 		age  int
 	}
-	customStructStack := NewStack[person]()
+	customStructStack := NewEmptyStack[person]()
 	customStructStack.Push(person{"test", 123})
 	assert.Equal(t, person{"test", 123}, customStructStack.Pop())
 }
