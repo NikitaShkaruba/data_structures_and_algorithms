@@ -5,6 +5,21 @@ import (
 	"testing"
 )
 
+func TestStack_NewEmpty(t *testing.T) {
+	s := NewEmptyStack[int]()
+	assert.Equal(t, 0, s.GetSize())
+}
+
+func TestStack_NewFromArray(t *testing.T) {
+	s := NewStackFromArray([]int{1, 2, 3})
+
+	assert.Equal(t, 3, s.GetSize())
+
+	assert.Equal(t, 3, s.Pop())
+	assert.Equal(t, 2, s.Pop())
+	assert.Equal(t, 1, s.Pop())
+}
+
 func TestStack_PushPop(t *testing.T) {
 	s := NewEmptyStack[int]()
 

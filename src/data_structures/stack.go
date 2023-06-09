@@ -9,7 +9,14 @@ type Stack[T any] struct {
 
 // NewEmptyStack works in O(1) time, O(1) space
 func NewEmptyStack[T any]() *Stack[T] {
-	return &Stack[T]{}
+	return NewStackFromArray(make([]T, 0))
+}
+
+// NewStackFromArray works in O(n) time, O(n) space
+func NewStackFromArray[T any](arr []T) *Stack[T] {
+	return &Stack[T]{
+		arr: arr,
+	}
 }
 
 // Push works in O(1) time, O(1) space
