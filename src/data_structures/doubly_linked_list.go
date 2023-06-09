@@ -1,5 +1,7 @@
 package data_structures
 
+////////////////////// Doubly Linked List //////////////////////
+
 type DoublyLinkedListNode[T any] struct {
 	val  T
 	prev *DoublyLinkedListNode[T]

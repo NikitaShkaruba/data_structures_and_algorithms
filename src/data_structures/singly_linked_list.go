@@ -1,5 +1,7 @@
 package data_structures
 
+////////////////////// Singly Linked List //////////////////////
+
 type SinglyLinkedListNode[T any] struct {
 	val  T
 	next *SinglyLinkedListNode[T]

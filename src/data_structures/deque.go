@@ -1,5 +1,7 @@
 package data_structures
 
+////////////////////// Deque //////////////////////
+
 type Deque[T any] struct {
 	headSentinel *DoublyLinkedListNode[T]
 	tailSentinel *DoublyLinkedListNode[T]

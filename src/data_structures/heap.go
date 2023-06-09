@@ -4,6 +4,8 @@ import (
 	"container/heap"
 )
 
+////////////////////// Heap //////////////////////
+
 type Heap[T any] struct {
 	adapter *stdlibHeapAdapter[T]
 }

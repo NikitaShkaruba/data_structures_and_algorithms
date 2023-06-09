@@ -1,5 +1,7 @@
 package data_structures
 
+////////////////////// Stack //////////////////////
+
 type Stack[T any] struct {
 	arr []T
 }

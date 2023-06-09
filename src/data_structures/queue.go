@@ -1,5 +1,7 @@
 package data_structures
 
+////////////////////// Queue //////////////////////
+
 type Queue[T any] struct {
 	deque *Deque[T]
 }
