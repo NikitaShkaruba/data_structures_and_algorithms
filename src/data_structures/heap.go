@@ -6,17 +6,18 @@ import (
 
 ////////////////////// Heap //////////////////////
 
+// Heap is a data structure that can retrieve the min/max element in O(logn) time, O(1) space, and insert a new element in O(logn) time, O(1) space
 type Heap[T any] struct {
 	adapter *stdlibHeapAdapter[T]
 }
 
-// NewHeap creates a new empty heap.
+// NewEmptyHeap creates a new empty heap in O(1) time, O(1) space
 // comparator should contain a < b if you want a min heap, and a > b if you want a max heap
-func NewHeap[T any](comparator func(a, b T) bool) *Heap[T] {
+func NewEmptyHeap[T any](comparator func(a, b T) bool) *Heap[T] {
 	return NewHeapFromArray(make([]T, 0), comparator)
 }
 
-// NewHeapFromArray creates a new heap from the given array.
+// NewHeapFromArray creates a new heap from the given array in O(n) time, O(n) space
 // comparator should contain a < b if you want a min heap, and a > b if you want a max heap
 func NewHeapFromArray[T any](arr []T, comparator func(a, b T) bool) *Heap[T] {
 	return &Heap[T]{
@@ -24,20 +25,26 @@ func NewHeapFromArray[T any](arr []T, comparator func(a, b T) bool) *Heap[T] {
 	}
 }
 
+// Push works in O(logn) time, O(1) space
 func (h *Heap[T]) Push(val T) {
 	heap.Push(h.adapter, val)
 }
 
+// Pop works in O(logn) time, O(1) space
 func (h *Heap[T]) Pop() T {
 	return heap.Pop(h.adapter).(T)
 }
 
+// GetSize works in O(1) time, O(1) space
 func (h *Heap[T]) GetSize() int {
 	return h.adapter.Len()
 }
 
 ////////////////////// Stdlib Heap Adapter //////////////////////
 
+// stdlibHeapAdapter is needed to not implement the whole heap yourself.
+// std library has a semi-convenient (not) interface that does all the dirty work for you.
+// I don't like it at all, but it works.
 type stdlibHeapAdapter[T any] struct {
 	arr        []T
 	comparator func(i, j T) bool

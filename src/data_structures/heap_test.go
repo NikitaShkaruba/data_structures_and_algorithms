@@ -5,8 +5,27 @@ import (
 	"testing"
 )
 
+func TestHeap_NewEmpty(t *testing.T) {
+	h := NewEmptyHeap[int](func(a, b int) bool {
+		return a < b
+	})
+
+	assert.Equal(t, 0, h.GetSize())
+}
+
+func TestHeap_NewFromArray(t *testing.T) {
+	arr := []int{12, 4, 8}
+	h := NewHeapFromArray[int](arr, func(a, b int) bool {
+		return a < b
+	})
+
+	assert.Equal(t, 4, h.Pop())
+	assert.Equal(t, 8, h.Pop())
+	assert.Equal(t, 12, h.Pop())
+}
+
 func TestHeap_PushPopMax(t *testing.T) {
-	h := NewHeap[int](func(a, b int) bool {
+	h := NewEmptyHeap[int](func(a, b int) bool {
 		return a > b
 	})
 
@@ -20,7 +39,7 @@ func TestHeap_PushPopMax(t *testing.T) {
 }
 
 func TestHeap_PushPopMin(t *testing.T) {
-	h := NewHeap[int](func(a, b int) bool {
+	h := NewEmptyHeap[int](func(a, b int) bool {
 		return a < b
 	})
 
@@ -34,7 +53,7 @@ func TestHeap_PushPopMin(t *testing.T) {
 }
 
 func TestHeap_GetSize(t *testing.T) {
-	h := NewHeap[int](func(a, b int) bool {
+	h := NewEmptyHeap[int](func(a, b int) bool {
 		return a < b
 	})
 
@@ -51,17 +70,6 @@ func TestHeap_GetSize(t *testing.T) {
 
 	h.Pop()
 	assert.Equal(t, 0, h.GetSize())
-}
-
-func TestHeap_NewFromArray(t *testing.T) {
-	arr := []int{12, 4, 8}
-	h := NewHeapFromArray[int](arr, func(a, b int) bool {
-		return a < b
-	})
-
-	assert.Equal(t, 4, h.Pop())
-	assert.Equal(t, 8, h.Pop())
-	assert.Equal(t, 12, h.Pop())
 }
 
 func TestHeap_DifferentGenericTypes(t *testing.T) {
