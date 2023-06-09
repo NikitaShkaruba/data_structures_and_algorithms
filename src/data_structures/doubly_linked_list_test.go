@@ -5,83 +5,85 @@ import (
 	"testing"
 )
 
-func TestNewDoublyLinkedListNode(t *testing.T) {
+func TestDoublyLinkedListNode_New(t *testing.T) {
 	node := NewDoublyLinkedListNode(
 		1,
 		&DoublyLinkedListNode[int]{
-			val: 2,
+			Val: 2,
 		},
 		&DoublyLinkedListNode[int]{
-			val: 3,
+			Val: 3,
 		},
 	)
-	assert.Equal(t, 1, node.val)
-	assert.Equal(t, 2, node.prev.val)
-	assert.Equal(t, 3, node.next.val)
+
+	assert.Equal(t, 1, node.Val)
+	assert.Equal(t, 2, node.Prev.Val)
+	assert.Equal(t, 3, node.Next.Val)
 }
 
-func TestNewSentinelDoublyLinkedListNode(t *testing.T) {
+func TestDoublyLinkedListNode_NewSentinel(t *testing.T) {
 	node := NewSentinelDoublyLinkedListNode[int]()
-	assert.Equal(t, 0, node.val)
-	assert.Nil(t, node.prev)
-	assert.Nil(t, node.next)
+
+	assert.Equal(t, 0, node.Val)
+	assert.Nil(t, node.Prev)
+	assert.Nil(t, node.Next)
 }
 
-func TestNewDoublyLinkedList(t *testing.T) {
+func TestDoublyLinkedList_New(t *testing.T) {
 	arr := []int{1, 2, 3, 4, 5}
 
 	headSentinel, tailSentinel := NewDoublyLinkedList(arr)
 	assert.NotNil(t, headSentinel)
-	assert.Nil(t, headSentinel.prev)
+	assert.Nil(t, headSentinel.Prev)
 	assert.NotNil(t, tailSentinel)
-	assert.Nil(t, tailSentinel.next)
+	assert.Nil(t, tailSentinel.Next)
 
-	cur := headSentinel.next
+	cur := headSentinel.Next
 	for i := 0; i < len(arr); i++ {
-		assert.Equal(t, arr[i], cur.val)
-		cur = cur.next
+		assert.Equal(t, arr[i], cur.Val)
+		cur = cur.Next
 	}
 
-	cur = tailSentinel.prev
+	cur = tailSentinel.Prev
 	for i := len(arr) - 1; i >= 0; i-- {
-		assert.Equal(t, arr[i], cur.val)
-		cur = cur.prev
+		assert.Equal(t, arr[i], cur.Val)
+		cur = cur.Prev
 	}
 
 	assert.Equal(t, headSentinel, cur)
 }
 
-func TestNewDoublyLinkedList_DifferentGenericTypes(t *testing.T) {
+func TestDoublyLinkedList_DifferentGenericTypes(t *testing.T) {
 	intArr := []int{1, 2, 3, 4, 5}
 	intHeadSentinel, _ := NewDoublyLinkedList(intArr)
-	intCur := intHeadSentinel.next
+	intCur := intHeadSentinel.Next
 	for _, num := range intArr {
-		assert.Equal(t, num, intCur.val)
-		intCur = intCur.next
+		assert.Equal(t, num, intCur.Val)
+		intCur = intCur.Next
 	}
 
 	floatArr := []float64{1.0, 2.0, 3.0, 4.0, 5.0}
 	floatHeadSentinel, _ := NewDoublyLinkedList(floatArr)
-	floatCur := floatHeadSentinel.next
+	floatCur := floatHeadSentinel.Next
 	for _, num := range floatArr {
-		assert.Equal(t, num, floatCur.val)
-		floatCur = floatCur.next
+		assert.Equal(t, num, floatCur.Val)
+		floatCur = floatCur.Next
 	}
 
 	stringArr := []string{"hello", "world", "I'm", "awake"}
 	stringHeadSentinel, _ := NewDoublyLinkedList(stringArr)
-	stringCur := stringHeadSentinel.next
+	stringCur := stringHeadSentinel.Next
 	for _, str := range stringArr {
-		assert.Equal(t, str, stringCur.val)
-		stringCur = stringCur.next
+		assert.Equal(t, str, stringCur.Val)
+		stringCur = stringCur.Next
 	}
 
 	boolArr := []bool{true, false, false, true}
 	boolHeadSentinel, _ := NewDoublyLinkedList(boolArr)
-	boolCur := boolHeadSentinel.next
+	boolCur := boolHeadSentinel.Next
 	for _, str := range boolArr {
-		assert.Equal(t, str, boolCur.val)
-		boolCur = boolCur.next
+		assert.Equal(t, str, boolCur.Val)
+		boolCur = boolCur.Next
 	}
 
 	type person struct {
@@ -93,9 +95,9 @@ func TestNewDoublyLinkedList_DifferentGenericTypes(t *testing.T) {
 		{name: "johny", age: 30},
 	}
 	customStructHeadSentinel, _ := NewDoublyLinkedList(customStructArr)
-	customStructCur := customStructHeadSentinel.next
+	customStructCur := customStructHeadSentinel.Next
 	for _, str := range customStructArr {
-		assert.Equal(t, str, customStructCur.val)
-		customStructCur = customStructCur.next
+		assert.Equal(t, str, customStructCur.Val)
+		customStructCur = customStructCur.Next
 	}
 }

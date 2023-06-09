@@ -11,12 +11,7 @@ type Deque[T any] struct {
 
 // NewDequeFromArray works in O(n) time, O(n) space
 func NewDequeFromArray[T any](arr []T) *Deque[T] {
-	headSentinel, tailSentinel := NewDoublyLinkedList[T]([]T{})
-
-	for _, n := range arr {
-		newNode := NewDoublyLinkedListNode(n, tailSentinel.prev, tailSentinel)
-		tailSentinel.prev.next, tailSentinel.prev = newNode, newNode
-	}
+	headSentinel, tailSentinel := NewDoublyLinkedList(arr)
 
 	return &Deque[T]{
 		headSentinel: headSentinel,
@@ -32,52 +27,52 @@ func NewEmptyDeque[T any]() *Deque[T] {
 
 // PushFront works in O(1) time, O(1) space
 func (d *Deque[T]) PushFront(val T) {
-	newNode := NewDoublyLinkedListNode(val, d.headSentinel, d.headSentinel.next)
-	d.headSentinel.next, d.headSentinel.next.prev = newNode, newNode
+	newNode := NewDoublyLinkedListNode(val, d.headSentinel, d.headSentinel.Next)
+	d.headSentinel.Next, d.headSentinel.Next.Prev = newNode, newNode
 
 	d.size++
 }
 
 // PushBack works in O(1) time, O(1) space
 func (d *Deque[T]) PushBack(val T) {
-	newNode := NewDoublyLinkedListNode(val, d.tailSentinel.prev, d.tailSentinel)
-	d.tailSentinel.prev, d.tailSentinel.prev.next = newNode, newNode
+	newNode := NewDoublyLinkedListNode(val, d.tailSentinel.Prev, d.tailSentinel)
+	d.tailSentinel.Prev, d.tailSentinel.Prev.Next = newNode, newNode
 
 	d.size++
 }
 
 // PopFront works in O(1) time, O(1) space
 func (d *Deque[T]) PopFront() T {
-	nodeToPop := d.headSentinel.next
+	nodeToPop := d.headSentinel.Next
 
-	d.headSentinel.next, d.headSentinel.next.next.prev = d.headSentinel.next.next, d.headSentinel
-	nodeToPop.next, nodeToPop.prev = nil, nil
+	d.headSentinel.Next, d.headSentinel.Next.Next.Prev = d.headSentinel.Next.Next, d.headSentinel
+	nodeToPop.Next, nodeToPop.Prev = nil, nil
 
 	d.size--
 
-	return nodeToPop.val
+	return nodeToPop.Val
 }
 
 // PopBack works in O(1) time, O(1) space
 func (d *Deque[T]) PopBack() T {
-	nodeToPop := d.tailSentinel.prev
+	nodeToPop := d.tailSentinel.Prev
 
-	d.tailSentinel.prev, d.tailSentinel.prev.prev.next = d.tailSentinel.prev.prev, d.tailSentinel
-	nodeToPop.prev, nodeToPop.next = nil, nil
+	d.tailSentinel.Prev, d.tailSentinel.Prev.Prev.Next = d.tailSentinel.Prev.Prev, d.tailSentinel
+	nodeToPop.Prev, nodeToPop.Next = nil, nil
 
 	d.size--
 
-	return nodeToPop.val
+	return nodeToPop.Val
 }
 
 // PeekFront works in O(1) time, O(1) space
 func (d *Deque[T]) PeekFront() T {
-	return d.headSentinel.next.val
+	return d.headSentinel.Next.Val
 }
 
 // PeekBack works in O(1) time, O(1) space
 func (d *Deque[T]) PeekBack() T {
-	return d.tailSentinel.prev.val
+	return d.tailSentinel.Prev.Val
 }
 
 // GetSize works in O(1) time, O(1) space
