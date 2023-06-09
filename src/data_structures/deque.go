@@ -9,6 +9,11 @@ type Deque[T any] struct {
 	size         int
 }
 
+// NewEmptyDeque works in O(1) time, O(1) space
+func NewEmptyDeque[T any]() *Deque[T] {
+	return NewDequeFromArray(make([]T, 0))
+}
+
 // NewDequeFromArray works in O(n) time, O(n) space
 func NewDequeFromArray[T any](arr []T) *Deque[T] {
 	headSentinel, tailSentinel := NewDoublyLinkedList(arr)
@@ -18,11 +23,6 @@ func NewDequeFromArray[T any](arr []T) *Deque[T] {
 		tailSentinel: tailSentinel,
 		size:         len(arr),
 	}
-}
-
-// NewEmptyDeque works in O(1) time, O(1) space
-func NewEmptyDeque[T any]() *Deque[T] {
-	return NewDequeFromArray(make([]T, 0))
 }
 
 // PushFront works in O(1) time, O(1) space
