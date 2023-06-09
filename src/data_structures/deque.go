@@ -2,21 +2,35 @@ package data_structures
 
 ////////////////////// Deque //////////////////////
 
+// Deque is a double ended queue that can push and pop from both ends for O(1) time, O(1) space
 type Deque[T any] struct {
 	headSentinel *DoublyLinkedListNode[T]
 	tailSentinel *DoublyLinkedListNode[T]
 	size         int
 }
 
-func NewDeque[T any]() *Deque[T] {
+// NewDequeFromArray works in O(n) time, O(n) space
+func NewDequeFromArray[T any](arr []T) *Deque[T] {
 	headSentinel, tailSentinel := NewDoublyLinkedList[T]([]T{})
+
+	for _, n := range arr {
+		newNode := NewDoublyLinkedListNode(n, tailSentinel.prev, tailSentinel)
+		tailSentinel.prev.next, tailSentinel.prev = newNode, newNode
+	}
 
 	return &Deque[T]{
 		headSentinel: headSentinel,
 		tailSentinel: tailSentinel,
+		size:         len(arr),
 	}
 }
 
+// NewEmptyDeque works in O(1) time, O(1) space
+func NewEmptyDeque[T any]() *Deque[T] {
+	return NewDequeFromArray(make([]T, 0))
+}
+
+// PushFront works in O(1) time, O(1) space
 func (d *Deque[T]) PushFront(val T) {
 	newNode := NewDoublyLinkedListNode(val, d.headSentinel, d.headSentinel.next)
 	d.headSentinel.next, d.headSentinel.next.prev = newNode, newNode
@@ -24,6 +38,7 @@ func (d *Deque[T]) PushFront(val T) {
 	d.size++
 }
 
+// PushBack works in O(1) time, O(1) space
 func (d *Deque[T]) PushBack(val T) {
 	newNode := NewDoublyLinkedListNode(val, d.tailSentinel.prev, d.tailSentinel)
 	d.tailSentinel.prev, d.tailSentinel.prev.next = newNode, newNode
@@ -31,6 +46,7 @@ func (d *Deque[T]) PushBack(val T) {
 	d.size++
 }
 
+// PopFront works in O(1) time, O(1) space
 func (d *Deque[T]) PopFront() T {
 	nodeToPop := d.headSentinel.next
 
@@ -42,6 +58,7 @@ func (d *Deque[T]) PopFront() T {
 	return nodeToPop.val
 }
 
+// PopBack works in O(1) time, O(1) space
 func (d *Deque[T]) PopBack() T {
 	nodeToPop := d.tailSentinel.prev
 
@@ -53,14 +70,17 @@ func (d *Deque[T]) PopBack() T {
 	return nodeToPop.val
 }
 
+// PeekFront works in O(1) time, O(1) space
 func (d *Deque[T]) PeekFront() T {
 	return d.headSentinel.next.val
 }
 
+// PeekBack works in O(1) time, O(1) space
 func (d *Deque[T]) PeekBack() T {
 	return d.tailSentinel.prev.val
 }
 
+// GetSize works in O(1) time, O(1) space
 func (d *Deque[T]) GetSize() int {
 	return d.size
 }

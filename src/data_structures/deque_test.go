@@ -5,8 +5,23 @@ import (
 	"testing"
 )
 
+func TestDeque_NewEmpty(t *testing.T) {
+	d := NewEmptyDeque[int]()
+	assert.Equal(t, 0, d.GetSize())
+}
+
+func TestDeque_NewFromArray(t *testing.T) {
+	d := NewDequeFromArray([]int{1, 2, 3})
+
+	assert.Equal(t, 3, d.GetSize())
+
+	assert.Equal(t, 1, d.PopFront())
+	assert.Equal(t, 2, d.PopFront())
+	assert.Equal(t, 3, d.PopFront())
+}
+
 func TestDeque_PushPop(t *testing.T) {
-	d := NewDeque[int]()
+	d := NewEmptyDeque[int]()
 
 	d.PushFront(2)
 	d.PushFront(1)
@@ -20,7 +35,7 @@ func TestDeque_PushPop(t *testing.T) {
 }
 
 func TestDeque_Peek(t *testing.T) {
-	d := NewDeque[int]()
+	d := NewEmptyDeque[int]()
 
 	d.PushFront(2)
 	assert.Equal(t, 2, d.PeekFront())
@@ -40,7 +55,7 @@ func TestDeque_Peek(t *testing.T) {
 }
 
 func TestDeque_GetSize(t *testing.T) {
-	d := NewDeque[int]()
+	d := NewEmptyDeque[int]()
 
 	d.PushFront(2)
 	assert.Equal(t, 1, d.GetSize())
@@ -56,19 +71,19 @@ func TestDeque_GetSize(t *testing.T) {
 }
 
 func TestDeque_DifferentGenericTypes(t *testing.T) {
-	intDeque := NewDeque[int]()
+	intDeque := NewEmptyDeque[int]()
 	intDeque.PushFront(1)
 	assert.Equal(t, 1, intDeque.PopFront())
 
-	floatDeque := NewDeque[float64]()
+	floatDeque := NewEmptyDeque[float64]()
 	floatDeque.PushFront(1.0)
 	assert.Equal(t, 1.0, floatDeque.PopFront())
 
-	stringDeque := NewDeque[string]()
+	stringDeque := NewEmptyDeque[string]()
 	stringDeque.PushFront("test")
 	assert.Equal(t, "test", stringDeque.PopFront())
 
-	boolDeque := NewDeque[bool]()
+	boolDeque := NewEmptyDeque[bool]()
 	boolDeque.PushFront(true)
 	assert.Equal(t, true, boolDeque.PopFront())
 
@@ -76,7 +91,7 @@ func TestDeque_DifferentGenericTypes(t *testing.T) {
 		name string
 		age  int
 	}
-	customStructDeque := NewDeque[person]()
+	customStructDeque := NewEmptyDeque[person]()
 	customStructDeque.PushFront(person{"test", 123})
 	assert.Equal(t, person{"test", 123}, customStructDeque.PopFront())
 }

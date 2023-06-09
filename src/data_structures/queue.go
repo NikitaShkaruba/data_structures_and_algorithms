@@ -8,7 +8,7 @@ type Queue[T any] struct {
 
 func NewQueue[T any]() *Queue[T] {
 	return &Queue[T]{
-		deque: NewDeque[T](),
+		deque: NewEmptyDeque[T](),
 	}
 }
 
