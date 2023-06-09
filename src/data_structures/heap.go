@@ -21,7 +21,7 @@ func NewEmptyHeap[T any](comparator func(a, b T) bool) *Heap[T] {
 // comparator should contain a < b if you want a min heap, and a > b if you want a max heap
 func NewHeapFromArray[T any](arr []T, comparator func(a, b T) bool) *Heap[T] {
 	return &Heap[T]{
-		adapter: newHeapAdapterFromArray(arr, comparator),
+		adapter: newStdlibHeapAdapter(arr, comparator),
 	}
 }
 
@@ -55,7 +55,7 @@ type stdlibHeapAdapter[T any] struct {
 	comparator func(i, j T) bool
 }
 
-func newHeapAdapterFromArray[T any](arr []T, comparator func(a, b T) bool) *stdlibHeapAdapter[T] {
+func newStdlibHeapAdapter[T any](arr []T, comparator func(a, b T) bool) *stdlibHeapAdapter[T] {
 	a := &stdlibHeapAdapter[T]{
 		arr:        arr,
 		comparator: comparator,
