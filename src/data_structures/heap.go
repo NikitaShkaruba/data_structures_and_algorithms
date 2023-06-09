@@ -18,9 +18,9 @@ func NewHeap[T any](comparator func(a, b T) bool) *Heap[T] {
 
 // NewHeapFromArray creates a new heap from the given array.
 // comparator should contain a < b if you want a min heap, and a > b if you want a max heap
-func NewHeapFromArray[T any](vals []T, comparator func(a, b T) bool) *Heap[T] {
+func NewHeapFromArray[T any](arr []T, comparator func(a, b T) bool) *Heap[T] {
 	return &Heap[T]{
-		adapter: newHeapAdapterFromArray(vals, comparator),
+		adapter: newHeapAdapterFromArray(arr, comparator),
 	}
 }
 
@@ -43,9 +43,9 @@ type stdlibHeapAdapter[T any] struct {
 	comparator func(i, j T) bool
 }
 
-func newHeapAdapterFromArray[T any](vals []T, comparator func(a, b T) bool) *stdlibHeapAdapter[T] {
+func newHeapAdapterFromArray[T any](arr []T, comparator func(a, b T) bool) *stdlibHeapAdapter[T] {
 	a := &stdlibHeapAdapter[T]{
-		arr:        vals,
+		arr:        arr,
 		comparator: comparator,
 	}
 	heap.Init(a)
@@ -62,13 +62,13 @@ func (a *stdlibHeapAdapter[T]) Push(x interface{}) {
 }
 
 func (a *stdlibHeapAdapter[T]) Pop() interface{} {
-	res := (a.arr)[len(a.arr)-1]
-	a.arr = (a.arr)[:len(a.arr)-1]
+	res := a.arr[len(a.arr)-1]
+	a.arr = a.arr[:len(a.arr)-1]
 	return res
 }
 
 func (a *stdlibHeapAdapter[T]) Peek() interface{} {
-	return (a.arr)[0]
+	return a.arr[0]
 }
 
 func (a stdlibHeapAdapter[T]) Swap(i, j int) {
