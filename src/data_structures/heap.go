@@ -36,7 +36,7 @@ func (h *Heap[T]) GetSize() int {
 	return h.adapter.Len()
 }
 
-////////////////////// stdlib heap adapter //////////////////////
+////////////////////// Stdlib Heap Adapter //////////////////////
 
 type stdlibHeapAdapter[T any] struct {
 	arr        []T
