@@ -2,30 +2,35 @@ package data_structures
 
 ////////////////////// Singly Linked List //////////////////////
 
+// SinglyLinkedListNode is a linked list node with a pointer to the next node
 type SinglyLinkedListNode[T any] struct {
-	val  T
-	next *SinglyLinkedListNode[T]
+	Val  T
+	Next *SinglyLinkedListNode[T]
 }
 
-func NewSinglyLinkedListNode[T any](val T) *SinglyLinkedListNode[T] {
+// NewSinglyLinkedListNode works in O(1) time, O(1) space
+func NewSinglyLinkedListNode[T any](val T, next *SinglyLinkedListNode[T]) *SinglyLinkedListNode[T] {
 	return &SinglyLinkedListNode[T]{
-		val: val,
+		Val:  val,
+		Next: next,
 	}
 }
 
+// NewSentinelSinglyLinkedListNode works in O(1) time, O(1) space
 func NewSentinelSinglyLinkedListNode[T any]() *SinglyLinkedListNode[T] {
 	return &SinglyLinkedListNode[T]{
-		val: *new(T),
+		Val: *new(T),
 	}
 }
 
+// NewSinglyLinkedList works in O(n) time, O(n) space
 func NewSinglyLinkedList[T any](arr []T) *SinglyLinkedListNode[T] {
 	headSentinel := NewSentinelSinglyLinkedListNode[T]()
 
 	cur := headSentinel
 	for _, e := range arr {
-		cur.next = NewSinglyLinkedListNode[T](e)
-		cur = cur.next
+		cur.Next = NewSinglyLinkedListNode[T](e, nil)
+		cur = cur.Next
 	}
 
 	return headSentinel
