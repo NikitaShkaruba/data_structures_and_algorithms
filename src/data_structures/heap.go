@@ -2,20 +2,23 @@ package data_structures
 
 import (
 	"container/heap"
-	"golang.org/x/exp/constraints"
 )
 
-type Heap[T constraints.Ordered] struct {
+type Heap[T any] struct {
 	adapter *stdlibHeapAdapter[T]
 }
 
-func NewHeap[T constraints.Ordered](isMaxHeap bool) *Heap[T] {
-	return NewHeapFromArray(make([]T, 0), isMaxHeap)
+// NewHeap creates a new empty heap.
+// comparator should contain a < b if you want a min heap, and a > b if you want a max heap
+func NewHeap[T any](comparator func(a, b T) bool) *Heap[T] {
+	return NewHeapFromArray(make([]T, 0), comparator)
 }
 
-func NewHeapFromArray[T constraints.Ordered](vals []T, isMaxHeap bool) *Heap[T] {
+// NewHeapFromArray creates a new heap from the given array.
+// comparator should contain a < b if you want a min heap, and a > b if you want a max heap
+func NewHeapFromArray[T any](vals []T, comparator func(a, b T) bool) *Heap[T] {
 	return &Heap[T]{
-		adapter: newHeapAdapterFromArray(vals, isMaxHeap),
+		adapter: newHeapAdapterFromArray(vals, comparator),
 	}
 }
 
@@ -33,15 +36,15 @@ func (h *Heap[T]) GetSize() int {
 
 ////////////////////// stdlib heap adapter //////////////////////
 
-type stdlibHeapAdapter[T constraints.Ordered] struct {
-	arr       []T
-	isMaxHeap bool
+type stdlibHeapAdapter[T any] struct {
+	arr        []T
+	comparator func(i, j T) bool
 }
 
-func newHeapAdapterFromArray[T constraints.Ordered](vals []T, isMinHeap bool) *stdlibHeapAdapter[T] {
+func newHeapAdapterFromArray[T any](vals []T, comparator func(a, b T) bool) *stdlibHeapAdapter[T] {
 	a := &stdlibHeapAdapter[T]{
-		arr:       vals,
-		isMaxHeap: isMinHeap,
+		arr:        vals,
+		comparator: comparator,
 	}
 	heap.Init(a)
 
@@ -49,11 +52,7 @@ func newHeapAdapterFromArray[T constraints.Ordered](vals []T, isMinHeap bool) *s
 }
 
 func (a stdlibHeapAdapter[T]) Less(i, j int) bool {
-	if a.isMaxHeap {
-		return a.arr[i] > a.arr[j]
-	} else {
-		return a.arr[i] < a.arr[j]
-	}
+	return a.comparator(a.arr[i], a.arr[j])
 }
 
 func (a *stdlibHeapAdapter[T]) Push(x interface{}) {
