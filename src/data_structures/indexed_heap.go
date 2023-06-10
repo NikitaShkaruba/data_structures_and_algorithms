@@ -2,7 +2,7 @@ package data_structures
 
 import "container/heap"
 
-//////////////////////// Indexed Heap ////////////////////////
+////////////////////// Indexed Heap //////////////////////
 
 // IndexedHeap is almost identical to Heap, but allows to remove elements by value for O(logn) time, O(1) space.
 // Also, it doesn't spend memory for storing duplicate values.
@@ -87,7 +87,7 @@ func (h *IndexedHeap[T]) GetSize() int {
 	return h.size
 }
 
-//////////////////////// Stdlib Indexed Heap Adapter ////////////////////////
+////////////////////// Stdlib Indexed Heap Adapter //////////////////////
 
 // stdlibIndexedHeapAdapter is needed to not implement the whole heap yourself.
 // std library has a semi-convenient (not) interface that does all the dirty work for you.
