@@ -7,7 +7,6 @@ package data_structures
 // AvlTree is a data structure that can retrieve the min/max element in O(logn) time, O(1) space, and insert a new element in O(logn) time, O(1) space
 type AvlTree[T comparable] struct {
 	root       *AvlTreeNode[T]
-	values     []T
 	size       int
 	comparator func(a, b T) int
 }
@@ -39,7 +38,6 @@ func (t *AvlTree[T]) Insert(value T) {
 	if added {
 		t.size++
 	}
-	t.values = nil
 }
 
 // Delete works in O(logn) time, O(n) space
@@ -49,7 +47,6 @@ func (t *AvlTree[T]) Delete(value T) {
 	if deleted {
 		t.size--
 	}
-	t.values = nil
 }
 
 // Contains works in O(logn) time, O(n) space
