@@ -1,7 +1,8 @@
 package data_structures
 
-////////////////////// AVL tree //////////////////////
 // This code was copied from the internet and refactored, because of that it's not of the highest quality
+
+////////////////////// AVL tree //////////////////////
 
 type AvlTree[T comparable] struct {
 	root       *AvlTreeNode[T]
@@ -26,24 +27,22 @@ func NewAvlTreeFromArray[T comparable](arr []T, comparator func(a, b T) int) *Av
 	return t
 }
 
-func (t *AvlTree[T]) Insert(value T) *AvlTree[T] {
+func (t *AvlTree[T]) Insert(value T) {
 	added := false
 	t.root = insertNode(t.root, value, &added, t.comparator)
 	if added {
 		t.size++
 	}
 	t.values = nil
-	return t
 }
 
-func (t *AvlTree[T]) Delete(value T) *AvlTree[T] {
+func (t *AvlTree[T]) Delete(value T) {
 	deleted := false
 	t.root = deleteNode(t.root, value, &deleted)
 	if deleted {
 		t.size--
 	}
 	t.values = nil
-	return t
 }
 
 func (t *AvlTree[T]) Contains(value T) bool {
@@ -130,7 +129,6 @@ func (n *AvlTreeNode[T]) init() *AvlTreeNode[T] {
 func (n *AvlTreeNode[T]) get(val T) *AvlTreeNode[T] {
 	var node *AvlTreeNode[T]
 
-	//compareResult := val.Comp(n.Value)
 	compareResult := n.comparator(val, n.Value)
 	if compareResult < 0 {
 		if n.left != nil {
@@ -153,7 +151,7 @@ func (n *AvlTreeNode[T]) rotateRight() *AvlTreeNode[T] {
 	// Rotation
 	leftNode.right, n.left = n, leftNode.right
 
-	// update heights
+	// Update heights
 	n.height = n.getMaxHeight() + 1
 	leftNode.height = leftNode.getMaxHeight() + 1
 
@@ -166,7 +164,7 @@ func (n *AvlTreeNode[T]) rotateLeft() *AvlTreeNode[T] {
 	// Rotation
 	rightNode.left, n.right = n, rightNode.left
 
-	// update heights
+	// Update heights
 	n.height = n.getMaxHeight() + 1
 	rightNode.height = rightNode.getMaxHeight() + 1
 
@@ -192,6 +190,8 @@ func (n *AvlTreeNode[T]) getMaxHeight() int {
 	}
 }
 
+////////////////////// Helper functions //////////////////////
+
 func insertNode[T comparable](n *AvlTreeNode[T], value T, added *bool, comparator func(a, b T) int) *AvlTreeNode[T] {
 	if n == nil {
 		*added = true
@@ -200,7 +200,7 @@ func insertNode[T comparable](n *AvlTreeNode[T], value T, added *bool, comparato
 			comparator: comparator,
 		}).init()
 	}
-	c := n.comparator(value, n.Value) //value.Comp(n.Value)
+	c := n.comparator(value, n.Value)
 	if c > 0 {
 		n.right = insertNode(n.right, value, added, comparator)
 	} else if c < 0 {
@@ -215,7 +215,7 @@ func insertNode[T comparable](n *AvlTreeNode[T], value T, added *bool, comparato
 	c = getChildrenHeightDiff[T](n)
 
 	if c > 1 {
-		c = n.left.comparator(value, n.left.Value) // value.Comp(n.left.Value)
+		c = n.left.comparator(value, n.left.Value)
 		if c < 0 {
 			return n.rotateRight()
 		} else if c > 0 {
@@ -223,7 +223,7 @@ func insertNode[T comparable](n *AvlTreeNode[T], value T, added *bool, comparato
 			return n.rotateRight()
 		}
 	} else if c < -1 {
-		c = n.right.comparator(value, n.right.Value) // value.Comp(n.right.Value)
+		c = n.right.comparator(value, n.right.Value)
 		if c > 0 {
 			return n.rotateLeft()
 		} else if c < 0 {
@@ -239,7 +239,7 @@ func deleteNode[T comparable](n *AvlTreeNode[T], value T, deleted *bool) *AvlTre
 		return n
 	}
 
-	c := n.comparator(value, n.Value) // value.Comp(n.Value)
+	c := n.comparator(value, n.Value)
 
 	if c < 0 {
 		n.left = deleteNode(n.left, value, deleted)
