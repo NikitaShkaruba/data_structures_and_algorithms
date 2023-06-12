@@ -4,6 +4,7 @@ package data_structures
 
 ////////////////////// AVL tree //////////////////////
 
+// AvlTree is a data structure that can retrieve the min/max element in O(logn) time, O(1) space, and insert a new element in O(logn) time, O(1) space
 type AvlTree[T comparable] struct {
 	root       *AvlTreeNode[T]
 	values     []T
@@ -11,10 +12,12 @@ type AvlTree[T comparable] struct {
 	comparator func(a, b T) int
 }
 
+// NewEmptyAvlTree works in O(1) time, O(1) space
 func NewEmptyAvlTree[T comparable](comparator func(a, b T) int) *AvlTree[T] {
 	return NewAvlTreeFromArray(make([]T, 0), comparator)
 }
 
+// NewAvlTreeFromArray works in O(n*logn) time, O(n) space
 func NewAvlTreeFromArray[T comparable](arr []T, comparator func(a, b T) int) *AvlTree[T] {
 	t := &AvlTree[T]{
 		comparator: comparator,
@@ -27,6 +30,7 @@ func NewAvlTreeFromArray[T comparable](arr []T, comparator func(a, b T) int) *Av
 	return t
 }
 
+// Insert works in O(logn) time, O(n) space
 func (t *AvlTree[T]) Insert(value T) {
 	added := false
 	t.root = insertNode(t.root, value, &added, t.comparator)
@@ -36,6 +40,7 @@ func (t *AvlTree[T]) Insert(value T) {
 	t.values = nil
 }
 
+// Delete works in O(logn) time, O(n) space
 func (t *AvlTree[T]) Delete(value T) {
 	deleted := false
 	t.root = deleteNode(t.root, value, &deleted)
@@ -45,6 +50,7 @@ func (t *AvlTree[T]) Delete(value T) {
 	t.values = nil
 }
 
+// Contains works in O(logn) time, O(n) space
 func (t *AvlTree[T]) Contains(value T) bool {
 	var node *AvlTreeNode[T]
 
@@ -59,6 +65,7 @@ func (t *AvlTree[T]) Contains(value T) bool {
 	return true
 }
 
+// GetMin works in O(logn) time, O(n) space
 func (t *AvlTree[T]) GetMin() T {
 	if t.root == nil {
 		return *new(T)
@@ -82,6 +89,7 @@ func (t *AvlTree[T]) GetMin() T {
 	return beginning.Value
 }
 
+// GetMax works in O(logn) time, O(n) space
 func (t *AvlTree[T]) GetMax() T {
 	if t.root == nil {
 		return *new(T)
@@ -105,6 +113,7 @@ func (t *AvlTree[T]) GetMax() T {
 	return beginning.Value
 }
 
+// GetSize works in O(1) time, O(n) space
 func (t *AvlTree[T]) GetSize() int {
 	return t.size
 }
