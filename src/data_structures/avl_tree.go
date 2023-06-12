@@ -1,6 +1,7 @@
 package data_structures
 
 ////////////////////// AVL tree //////////////////////
+// This code was copied from the internet and refactored, because of that it's not of the highest quality
 
 type AvlTree[T comparable] struct {
 	root       *AvlTreeNode[T]
