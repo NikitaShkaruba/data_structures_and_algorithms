@@ -20,7 +20,7 @@ func TestAvlTree_NewFromArray(t *testing.T) {
 	assert.Equal(t, 4, tree.GetMin())
 }
 
-func TestAvlTree_MinTreeInsertDeleteGetMinGetMax(t *testing.T) {
+func TestAvlTree_InsertDeleteGetMinGetMax(t *testing.T) {
 	tree := NewEmptyAvlTree[int](minIntTreeComparator)
 
 	tree.Insert(8)
@@ -48,7 +48,7 @@ func TestAvlTree_MinTreeInsertDeleteGetMinGetMax(t *testing.T) {
 	assert.False(t, tree.Contains(22))
 }
 
-func TestAvlTree_MaxTreeInsertDeleteGetMinGetMax(t *testing.T) {
+func TestAvlTree_InsertDeleteGetMinGetMaxOnMaxTree(t *testing.T) {
 	tree := NewEmptyAvlTree[int](func(a int, b int) int {
 		return -minIntTreeComparator(a, b)
 	})
