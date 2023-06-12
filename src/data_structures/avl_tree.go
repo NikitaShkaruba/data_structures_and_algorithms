@@ -13,14 +13,16 @@ type AvlTree[T comparable] struct {
 }
 
 // NewEmptyAvlTree works in O(1) time, O(1) space
-func NewEmptyAvlTree[T comparable](comparator func(a, b T) int) *AvlTree[T] {
-	return NewAvlTreeFromArray(make([]T, 0), comparator)
+// lessComparator should return 1 if a > b, -1 if a < b, and 0 if a == b
+func NewEmptyAvlTree[T comparable](lessComparator func(a, b T) int) *AvlTree[T] {
+	return NewAvlTreeFromArray(make([]T, 0), lessComparator)
 }
 
 // NewAvlTreeFromArray works in O(n*logn) time, O(n) space
-func NewAvlTreeFromArray[T comparable](arr []T, comparator func(a, b T) int) *AvlTree[T] {
+// lessComparator should return 1 if a > b, -1 if a < b, and 0 if a == b
+func NewAvlTreeFromArray[T comparable](arr []T, lessComparator func(a, b T) int) *AvlTree[T] {
 	t := &AvlTree[T]{
-		comparator: comparator,
+		comparator: lessComparator,
 	}
 
 	for _, val := range arr {
