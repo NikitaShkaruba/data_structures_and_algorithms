@@ -5,39 +5,23 @@ import (
 	"testing"
 )
 
-func TestMinSelfBalancingBinarySearchTree_New(t *testing.T) {
-	tree := NewEmptySelfBalancingBinarySearchTree[int](minIntTreeComparator)
+func TestAvlTree_New(t *testing.T) {
+	tree := NewEmptyAvlTree[int](minIntTreeComparator)
 
 	assert.Equal(t, 0, tree.GetSize())
 }
 
-func TestMinSelfBalancingBinarySearchTree_NewFromArray(t *testing.T) {
+func TestAvlTree_NewFromArray(t *testing.T) {
 	arr := []int{8, 19, 4}
-	tree := NewSelfBalancingBinarySearchTreeFromArray[int](arr, minIntTreeComparator)
+	tree := NewAvlTreeFromArray[int](arr, minIntTreeComparator)
 
 	assert.Equal(t, 3, tree.GetSize())
 	assert.Equal(t, 19, tree.GetMax())
 	assert.Equal(t, 4, tree.GetMin())
 }
 
-func TestMinSelfBalancingBinarySearchTree_GetSize(t *testing.T) {
-	tree := NewEmptySelfBalancingBinarySearchTree[int](minIntTreeComparator)
-
-	tree.Insert(1)
-	assert.Equal(t, 1, tree.GetSize())
-
-	tree.Insert(2)
-	assert.Equal(t, 2, tree.GetSize())
-
-	tree.Delete(2)
-	assert.Equal(t, 1, tree.GetSize())
-
-	tree.Delete(1)
-	assert.Equal(t, 0, tree.GetSize())
-}
-
-func TestMinSelfBalancingBinarySearchTree_InsertDeleteGetMinGetMax(t *testing.T) {
-	tree := NewEmptySelfBalancingBinarySearchTree[int](minIntTreeComparator)
+func TestAvlTree_MinTreeInsertDeleteGetMinGetMax(t *testing.T) {
+	tree := NewEmptyAvlTree[int](minIntTreeComparator)
 
 	tree.Insert(8)
 	tree.Insert(12)
@@ -64,8 +48,8 @@ func TestMinSelfBalancingBinarySearchTree_InsertDeleteGetMinGetMax(t *testing.T)
 	assert.False(t, tree.Contains(22))
 }
 
-func TestMaxSelfBalancingBinarySearchTree_InsertDeleteGetMinGetMax(t *testing.T) {
-	tree := NewEmptySelfBalancingBinarySearchTree[int](func(a int, b int) int {
+func TestAvlTree_MaxTreeInsertDeleteGetMinGetMax(t *testing.T) {
+	tree := NewEmptyAvlTree[int](func(a int, b int) int {
 		return -minIntTreeComparator(a, b)
 	})
 
@@ -94,12 +78,28 @@ func TestMaxSelfBalancingBinarySearchTree_InsertDeleteGetMinGetMax(t *testing.T)
 	assert.False(t, tree.Contains(22))
 }
 
-func TestMinSelfBalancingBinarySearchTree_DifferentGenericTypes(t *testing.T) {
-	intTree := NewSelfBalancingBinarySearchTreeFromArray([]int{12, 4, 8}, minIntTreeComparator)
+func TestAvlTree_GetSize(t *testing.T) {
+	tree := NewEmptyAvlTree[int](minIntTreeComparator)
+
+	tree.Insert(1)
+	assert.Equal(t, 1, tree.GetSize())
+
+	tree.Insert(2)
+	assert.Equal(t, 2, tree.GetSize())
+
+	tree.Delete(2)
+	assert.Equal(t, 1, tree.GetSize())
+
+	tree.Delete(1)
+	assert.Equal(t, 0, tree.GetSize())
+}
+
+func TestAvlTree_DifferentGenericTypes(t *testing.T) {
+	intTree := NewAvlTreeFromArray([]int{12, 4, 8}, minIntTreeComparator)
 	assert.Equal(t, 4, intTree.GetMin())
 	assert.Equal(t, 12, intTree.GetMax())
 
-	floatTree := NewSelfBalancingBinarySearchTreeFromArray([]float64{12.0, 4.0, 8.0}, func(a, b float64) int {
+	floatTree := NewAvlTreeFromArray([]float64{12.0, 4.0, 8.0}, func(a, b float64) int {
 		if a > b {
 			return 1
 		} else if a < b {
@@ -111,7 +111,7 @@ func TestMinSelfBalancingBinarySearchTree_DifferentGenericTypes(t *testing.T) {
 	assert.Equal(t, 4.0, floatTree.GetMin())
 	assert.Equal(t, 12.0, floatTree.GetMax())
 
-	stringTree := NewSelfBalancingBinarySearchTreeFromArray([]string{"aaa", "a", "aa"}, func(a, b string) int {
+	stringTree := NewAvlTreeFromArray([]string{"aaa", "a", "aa"}, func(a, b string) int {
 		if a > b {
 			return 1
 		} else if a < b {
@@ -132,7 +132,7 @@ func TestMinSelfBalancingBinarySearchTree_DifferentGenericTypes(t *testing.T) {
 		{name: "johny", age: 4},
 		{name: "danny", age: 8},
 	}
-	customStructTree := NewSelfBalancingBinarySearchTreeFromArray(people, func(a, b person) int {
+	customStructTree := NewAvlTreeFromArray(people, func(a, b person) int {
 		if a.age > b.age {
 			return 1
 		} else if a.age < b.age {

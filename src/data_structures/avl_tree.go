@@ -2,19 +2,20 @@ package data_structures
 
 ////////////////////// AVL tree //////////////////////
 
-// TODO: consider merging with AvlTree
-// TODO: refactor this code
-type SelfBalancingBinarySearchTree[T comparable] struct {
-	tree *AvlTree[T]
+type AvlTree[T comparable] struct {
+	root       *AvlTreeNode[T]
+	values     []T
+	size       int
+	comparator func(a, b T) int
 }
 
-func NewEmptySelfBalancingBinarySearchTree[T comparable](comparator func(a, b T) int) *SelfBalancingBinarySearchTree[T] {
-	return NewSelfBalancingBinarySearchTreeFromArray(make([]T, 0), comparator)
+func NewEmptyAvlTree[T comparable](comparator func(a, b T) int) *AvlTree[T] {
+	return NewAvlTreeFromArray(make([]T, 0), comparator)
 }
 
-func NewSelfBalancingBinarySearchTreeFromArray[T comparable](arr []T, comparator func(a, b T) int) *SelfBalancingBinarySearchTree[T] {
-	t := &SelfBalancingBinarySearchTree[T]{
-		tree: NewAvlTree[T](comparator),
+func NewAvlTreeFromArray[T comparable](arr []T, comparator func(a, b T) int) *AvlTree[T] {
+	t := &AvlTree[T]{
+		comparator: comparator,
 	}
 
 	for _, val := range arr {
@@ -24,50 +25,11 @@ func NewSelfBalancingBinarySearchTreeFromArray[T comparable](arr []T, comparator
 	return t
 }
 
-func (t *SelfBalancingBinarySearchTree[T]) Insert(val T) {
-	t.tree.Insert(val)
-}
-
-func (t *SelfBalancingBinarySearchTree[T]) Delete(val T) {
-	t.tree.Delete(val)
-}
-
-func (t *SelfBalancingBinarySearchTree[T]) Contains(val T) bool {
-	return t.tree.Contains(val)
-}
-
-func (t *SelfBalancingBinarySearchTree[T]) GetMin() T {
-	val, _ := t.tree.Head()
-	return val
-}
-
-func (t *SelfBalancingBinarySearchTree[T]) GetMax() T {
-	val, _ := t.tree.Tail()
-	return val
-}
-
-func (t *SelfBalancingBinarySearchTree[T]) GetSize() int {
-	return t.tree.GetSize()
-}
-
-type AvlTree[T comparable] struct {
-	root       *AvlTreeNode[T]
-	values     []T
-	len        int
-	comparator func(a, b T) int
-}
-
-func NewAvlTree[T comparable](comparator func(a, b T) int) *AvlTree[T] {
-	return &AvlTree[T]{
-		comparator: comparator,
-	}
-}
-
 func (t *AvlTree[T]) Insert(value T) *AvlTree[T] {
 	added := false
 	t.root = insertNode(t.root, value, &added, t.comparator)
 	if added {
-		t.len++
+		t.size++
 	}
 	t.values = nil
 	return t
@@ -77,34 +39,29 @@ func (t *AvlTree[T]) Delete(value T) *AvlTree[T] {
 	deleted := false
 	t.root = deleteNode(t.root, value, &deleted)
 	if deleted {
-		t.len--
+		t.size--
 	}
 	t.values = nil
 	return t
 }
 
 func (t *AvlTree[T]) Contains(value T) bool {
-	_, found := t.Get(value)
-	return found
-}
-
-func (t *AvlTree[T]) Get(value T) (T, bool) {
 	var node *AvlTreeNode[T]
 
 	if t.root != nil {
 		node = t.root.get(value)
 	}
 
-	if node != nil {
-		return node.Value, true
+	if node == nil {
+		return false
 	}
 
-	return *new(T), false
+	return true
 }
 
-func (t *AvlTree[T]) Head() (T, bool) {
+func (t *AvlTree[T]) GetMin() T {
 	if t.root == nil {
-		return *new(T), false
+		return *new(T)
 	}
 
 	var beginning = t.root
@@ -118,16 +75,16 @@ func (t *AvlTree[T]) Head() (T, bool) {
 		}
 	}
 
-	if beginning != nil {
-		return beginning.Value, true
+	if beginning == nil {
+		return *new(T)
 	}
 
-	return *new(T), false
+	return beginning.Value
 }
 
-func (t *AvlTree[T]) Tail() (T, bool) {
+func (t *AvlTree[T]) GetMax() T {
 	if t.root == nil {
-		return *new(T), false
+		return *new(T)
 	}
 
 	var beginning = t.root
@@ -141,16 +98,18 @@ func (t *AvlTree[T]) Tail() (T, bool) {
 		}
 	}
 
-	if beginning != nil {
-		return beginning.Value, true
+	if beginning == nil {
+		return *new(T)
 	}
 
-	return *new(T), false
+	return beginning.Value
 }
 
 func (t *AvlTree[T]) GetSize() int {
-	return t.len
+	return t.size
 }
+
+////////////////////// AVL Tree Node //////////////////////
 
 type AvlTreeNode[T comparable] struct {
 	Value      T
