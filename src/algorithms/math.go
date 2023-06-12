@@ -1,6 +1,6 @@
 package algorithms
 
-////////////////////// Basic functions //////////////////////
+////////////////////// Math functions //////////////////////
 
 // ordered can be replaced with constraints.Ordered from "golang.org/x/exp/constraints".
 // But because leetcode.com doesn't allow to use external libs, i've written mine
