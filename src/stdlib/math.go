@@ -1,4 +1,4 @@
-package algorithms
+package stdlib
 
 ////////////////////// Math functions //////////////////////
 
@@ -6,8 +6,8 @@ package algorithms
 // But because leetcode.com doesn't allow to use external libs, i've written mine
 type ordered interface {
 	~float32 | ~float64 |
-		~int | ~int8 | ~int16 | ~int32 | ~int64 |
-		~uint | ~uint8 | ~uint16 | ~uint32 | ~uint64
+	~int | ~int8 | ~int16 | ~int32 | ~int64 |
+	~uint | ~uint8 | ~uint16 | ~uint32 | ~uint64
 }
 
 func Max[T ordered](a, b T) T {
