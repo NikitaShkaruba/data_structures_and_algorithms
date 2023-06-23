@@ -16,7 +16,7 @@ jobs:
           go-version: '1.18'
       - name: Build
         run: go build -v ./...
-      - name: Generate library
+      - name: Generate leetcode_library.go
         run: go run build/build.go
       - name: Check that generated files are unchanged
         run: git diff --exit-code HEAD || exit 1
