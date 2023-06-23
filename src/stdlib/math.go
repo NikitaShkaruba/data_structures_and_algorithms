@@ -2,7 +2,7 @@ package stdlib
 
 ////////////////////// Math functions //////////////////////
 
-func Max[T ordered](a, b T) T {
+func Max[T Ordered](a, b T) T {
 	if a > b {
 		return a
 	} else {
@@ -10,7 +10,7 @@ func Max[T ordered](a, b T) T {
 	}
 }
 
-func Min[T ordered](a, b T) T {
+func Min[T Ordered](a, b T) T {
 	if a < b {
 		return a
 	} else {
@@ -18,21 +18,10 @@ func Min[T ordered](a, b T) T {
 	}
 }
 
-func Abs[T ordered](a T) T {
+func Abs[T Ordered](a T) T {
 	if a < 0 {
 		return -a
 	} else {
 		return a
 	}
-}
-
-////////////////////// Ordered //////////////////////
-
-// ordered can be replaced with constraints.Ordered from "golang.org/x/exp/constraints".
-// But because leetcode.com doesn't allow to use external libs, i've written mine
-// Also, I'm copypasting it everywhere for easier copy-pasting
-type ordered interface {
-	~float32 | ~float64 |
-		~int | ~int8 | ~int16 | ~int32 | ~int64 |
-		~uint | ~uint8 | ~uint16 | ~uint32 | ~uint64
 }

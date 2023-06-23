@@ -1,14 +1,16 @@
 package data_structures
 
+import "src/src/stdlib"
+
 ////////////////////// Segment Tree //////////////////////
 
-type SegmentTree[T ordered] struct {
+type SegmentTree[T stdlib.Ordered] struct {
 	nums []T
 	root *segment[T]
 }
 
 // NewSegmentTree works in O(n) time, O(logn) space
-func NewSegmentTree[T ordered](nums []T) *SegmentTree[T] {
+func NewSegmentTree[T stdlib.Ordered](nums []T) *SegmentTree[T] {
 	return &SegmentTree[T]{
 		nums: nums,
 		root: newSegment(0, len(nums)-1, nums),
@@ -48,14 +50,14 @@ func (t *SegmentTree[T]) GetFullRangeSum() T {
 
 ////////////////////// Segment //////////////////////
 
-type segment[T ordered] struct {
+type segment[T stdlib.Ordered] struct {
 	l, r         int
 	sum          T
 	leftSegment  *segment[T]
 	rightSegment *segment[T]
 }
 
-func newSegment[T ordered](l, r int, nums []T) *segment[T] {
+func newSegment[T stdlib.Ordered](l, r int, nums []T) *segment[T] {
 	if l == r {
 		return &segment[T]{
 			l:   l,
@@ -91,15 +93,4 @@ func (s *segment[T]) sumRange(l, r int) T {
 
 	// Else
 	return s.leftSegment.sumRange(l, r) + s.rightSegment.sumRange(l, r)
-}
-
-////////////////////// Ordered //////////////////////
-
-// ordered can be replaced with constraints.Ordered from "golang.org/x/exp/constraints".
-// But because leetcode.com doesn't allow to use external libs, i've written mine
-// Also, I'm copypasting it everywhere for easier copy-pasting
-type ordered interface {
-	~float32 | ~float64 |
-		~int | ~int8 | ~int16 | ~int32 | ~int64 |
-		~uint | ~uint8 | ~uint16 | ~uint32 | ~uint64
 }
