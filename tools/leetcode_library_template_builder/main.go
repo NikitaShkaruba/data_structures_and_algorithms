@@ -106,6 +106,11 @@ func getSourceFilePaths() ([]string, error) {
 			return nil
 		}
 
+		// Ignore algorithms folder
+		if len(path) > 13 && path[:14] == "src/algorithms" {
+			return nil
+		}
+
 		filePaths = append(filePaths, path)
 		return nil
 	})
