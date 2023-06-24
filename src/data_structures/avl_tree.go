@@ -2,7 +2,7 @@ package data_structures
 
 ////////////////////// AVL tree //////////////////////
 
-// This code was copied from the internet and refactored, because of that it's not of the highest quality
+// Code for AVL tree was copied from the internet and refactored, because of that it's not of the highest quality
 
 // AvlTree is a data structure that can retrieve the min/max element in O(logn) time, O(1) space, and insert a new element in O(logn) time, O(1) space
 type AvlTree[T comparable] struct {
