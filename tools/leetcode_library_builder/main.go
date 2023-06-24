@@ -5,17 +5,16 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
+	"src/tools"
 )
 
 // This file gets the content of all the src files, and concatenates them into one, putting them into a single package.
 // The concatenated file should be pasted into leetcode.com and used easily
 
 func main() {
-	const outputFileName = "leetcode_library.template"
-
 	fmt.Println("Generation started")
 
-	outputFile, err := createOutputFile(outputFileName)
+	outputFile, err := createOutputFile()
 	if err != nil {
 		panic(fmt.Errorf("failed to create the output file: %w", err))
 	}
@@ -30,11 +29,11 @@ func main() {
 		panic(fmt.Errorf("failed to concatenate source files: %w", err))
 	}
 
-	fmt.Println("Successfully generated " + outputFileName)
+	fmt.Println("Successfully generated " + tools.LibraryFilePath)
 }
 
-func createOutputFile(outputFileName string) (*os.File, error) {
-	outputFile, err := os.Create("build/" + outputFileName)
+func createOutputFile() (*os.File, error) {
+	outputFile, err := os.Create(tools.LibraryFilePath)
 	if err != nil {
 		return nil, err
 	}
