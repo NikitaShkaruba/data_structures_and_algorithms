@@ -11,9 +11,11 @@ import (
 // The concatenated file should be pasted into leetcode.com and used easily
 
 func main() {
+	const outputFileName = "leetcode_library.template"
+
 	fmt.Println("Generation started")
 
-	outputFile, err := createOutputFile()
+	outputFile, err := createOutputFile(outputFileName)
 	if err != nil {
 		panic(fmt.Errorf("failed to create the output file: %w", err))
 	}
@@ -28,11 +30,11 @@ func main() {
 		panic(fmt.Errorf("failed to concatenate source files: %w", err))
 	}
 
-	fmt.Println("Successfully generated build/leetcode_library.go_template")
+	fmt.Println("Successfully generated " + outputFileName)
 }
 
-func createOutputFile() (*os.File, error) {
-	outputFile, err := os.Create("build/leetcode_library.go_template")
+func createOutputFile(outputFileName string) (*os.File, error) {
+	outputFile, err := os.Create("build/" + outputFileName)
 	if err != nil {
 		return nil, err
 	}
