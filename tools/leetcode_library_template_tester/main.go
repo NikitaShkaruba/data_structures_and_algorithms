@@ -9,16 +9,16 @@ import (
 )
 
 func main() {
-	fmt.Println("Started testing " + tools.LibraryFilePath)
+	fmt.Println("Started testing " + tools.LibraryTemplateFilePath)
 
-	libraryBytes, err := os.ReadFile(tools.LibraryFilePath)
+	libraryTemplateBytes, err := os.ReadFile(tools.LibraryTemplateFilePath)
 	if err != nil {
-		panic(fmt.Errorf("failed to read library file: %w", err))
+		panic(fmt.Errorf("failed to read library template file: %w", err))
 	}
 
-	var testFileName = strings.Replace(tools.LibraryFilePath, ".template", "_test.go", 1)
+	var testFileName = strings.Replace(tools.LibraryTemplateFilePath, ".template", "_test.go", 1)
 
-	err = createTestFile(testFileName, string(libraryBytes))
+	err = createTestFile(testFileName, string(libraryTemplateBytes))
 	if err != nil {
 		panic(fmt.Errorf("failed to create go test file: %w", err))
 	}
@@ -50,13 +50,13 @@ func TestLeetcodeLibrary(t *testing.T) {
 
 `
 
-func createTestFile(testFileName, libraryContent string) error {
+func createTestFile(testFileName, libraryTemplateContent string) error {
 	testFile, err := os.Create(testFileName)
 	if err != nil {
 		return err
 	}
 
-	_, err = testFile.WriteString(header + libraryContent)
+	_, err = testFile.WriteString(header + libraryTemplateContent)
 	if err != nil {
 		return nil
 	}

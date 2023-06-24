@@ -29,11 +29,11 @@ func main() {
 		panic(fmt.Errorf("failed to concatenate source files: %w", err))
 	}
 
-	fmt.Println("Successfully generated " + tools.LibraryFilePath)
+	fmt.Println("Successfully generated " + tools.LibraryTemplateFilePath)
 }
 
 func createOutputFile() (*os.File, error) {
-	outputFile, err := os.Create(tools.LibraryFilePath)
+	outputFile, err := os.Create(tools.LibraryTemplateFilePath)
 	if err != nil {
 		return nil, err
 	}
