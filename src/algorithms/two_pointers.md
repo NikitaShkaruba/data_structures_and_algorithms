@@ -1,11 +1,12 @@
 # Two pointers
 
-This pattern is used for array iteration.  
+Two pointers is used for array iteration.  
 Usually works in `O(n)` time, `O(1)` space.
 
 ### On a single array
+
 ```go
-func twoPointersOnSingleArray(arr []int) {
+func twoPointers(arr []int) {
 	l := 0
 	r := len(arr) - 1
 
@@ -28,9 +29,11 @@ func twoPointersOnSingleArray(arr []int) {
 ```
 
 ### On two arrays
+
 This template is good because we don’t deal with the edge cases in the loop
+
 ```go
-func twoPointersOnDoubleArray(arr1, arr2 []int) {
+func twoPointers(arr1, arr2 []int) {
 	i := 0
 	j := 0
 

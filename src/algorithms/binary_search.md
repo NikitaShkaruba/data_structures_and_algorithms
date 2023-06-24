@@ -1,10 +1,10 @@
 # Binary search
 
-Binary helps to find value indexes in sorted array in `O(logn)` time, `O(1)` space.  
+Binary search helps to find value indexes in sorted array in `O(logn)` time, `O(1)` space.  
 It can be implemented very differently, but I have this template. Its flawless, you should use it everywhere.
 
 ```go
-func BinarySearch(arr []int, valueToFind int) int {
+func binarySearch(arr []int, valueToFind int) int {
 	l := 0
 	r := len(arr) - 1
 	foundIndex := -1
