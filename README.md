@@ -7,7 +7,7 @@
 ### About
 
 Standard go library  weak and inconvenient for leetcoding, so I've decided to write a good library myself.
-I've defined all the data structures and misc functions in `src`, then with `tools/leetcode_library_template_builder`
+I've defined all the generic data structures and generic misc functions in `src`, then with `tools/leetcode_library_template_builder`
 I concatenate all the files to `build/leetcode_library.template`, which I later copy-paste to every leetcode solution,
 enjoying the library I deserve.
 
