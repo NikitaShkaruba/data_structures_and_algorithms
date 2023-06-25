@@ -1,7 +1,5 @@
 package stdlib
 
-import "math"
-
 func GetIntegerLength(num int) int {
 	if num == 0 {
 		return 1
@@ -19,6 +17,6 @@ func GetIntegerLength(num int) int {
 }
 
 func GetIntegerDigit(num, position int) int {
-	divider := int(math.Pow(10, float64(position)))
+	divider := Pow(10, position)
 	return Abs(num) / divider % 10
 }

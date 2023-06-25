@@ -1,5 +1,7 @@
 package stdlib
 
+import "math"
+
 ////////////////////// Math functions //////////////////////
 
 func Max[T Ordered](a, b T) T {
@@ -24,4 +26,8 @@ func Abs[T Ordered](a T) T {
 	} else {
 		return a
 	}
+}
+
+func Pow[T Ordered](x, y T) T {
+	return T(math.Pow(float64(x), float64(y)))
 }
