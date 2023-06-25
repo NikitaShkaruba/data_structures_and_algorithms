@@ -20,8 +20,8 @@ to define it, and there's a lot of error-prone code
 
 ### Project structure
 
-- [src/algorithms](src/algorithms) - directory with algorithm explanations necessary for leetcode
-- [src/data_structures](src/data_structures) - directory with generic data structures necessary for leetcode
-- [src/stdlib](src/stdlib) - directory with generic misc functions that can be used everywhere
-- [build/leetcode_library.template](build/leetcode_library.template) - template I copy-paste to every solution, containing all the data structures and misc functions
+- [docs/algorithms](docs/algorithms) - directory with algorithm explanations necessary for leetcode
+- [src/data_structures](src/data_structures) - directory with generic data structures necessary for leetcode.  It gets concatenated to `leetcode_library.template`
+- [src/stdlib](src/stdlib) - directory with generic misc functions that can be used everywhere. It gets concatenated to `leetcode_library.template`
+- [build/leetcode_library.template](build/leetcode_library.template) - template I copy-paste to every solution, containing all the generic data structures and generic misc functions
 - [tools](tools) - directory that helps to maintain `leetcode_library.template`
