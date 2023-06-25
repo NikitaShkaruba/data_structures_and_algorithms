@@ -26,17 +26,18 @@ func slidingWindow(arr []int) {
 ```go
 func slidingWindow(arr []int, size int) {
 	// Build the initial window
-	for i := 0; i < size; i++ { 
+	for i := 0; i < size; i++ {
 		// Logic that "adds" arr[i] to the window
 	}
-	
+
 	// You have a correct window state, you might as well use it depending on the problem
-	
+
 	// Move the window
 	for i := size; i < len(arr); i++ {
 		// Logic that "adds" arr[i] to the window
 		// Logic that "removes" arr[i-size] from the window
 		// You have a correct window state, you might as well use it depending on the problem
-    } 
+	}
 }
+
 ```
