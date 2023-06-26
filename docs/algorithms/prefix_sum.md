@@ -1,8 +1,11 @@
 # Prefix sum
 
+
 Prefix sum precomputes sums of arrays, letting us later do quick range queries for `O(1)` time instead of usual `O(n)` time.
 The one downside of this pattern is extra `O(n)` space, but it's well worth it, extra space is okay for most solutions.
 The next level of this pattern is [Segment tree](../../src/data_structures/segment_tree.go).
+
+### With prefix sum
 
 ```go
 // nums       = [4, 2, 3,  5,  2]
@@ -34,7 +37,10 @@ func getSubarraySum(nums, prefixSums []int, l, r int) int {
 }
 ```
 
-How to get range sum without prefix sum
+### Without prefix sum
+
+Without prefix sum we need to iterate over all the data between `l` and `r`, which is `O(n)` time
+
 ```go
 // Basic version, works in O(n) time, O(1) space
 func getSubarraySum(nums []int, l, r int) int {
