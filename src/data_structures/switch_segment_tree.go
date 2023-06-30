@@ -1,6 +1,7 @@
 package data_structures
 
 ////////////////////// Switch Segment Tree //////////////////////
+// More information is in docs/data_structures/segment_tree.md
 
 // SwitchSegmentTree is a data structure that contain array of switches (1 or 0).
 // It can flip any switch range quickly for O(logn) time instead of usual O(n) time for arrays
