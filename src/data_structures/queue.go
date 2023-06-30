@@ -1,8 +1,8 @@
 package data_structures
 
 ////////////////////// Queue //////////////////////
+// You can find this data structure overview in docs/data_structures/queue.md
 
-// Queue is a data structure that implements LILO (last in, last out) interface
 type Queue[T any] struct {
 	deque *Deque[T]
 }
