@@ -1,6 +1,7 @@
 package data_structures
 
 ////////////////////// Stack //////////////////////
+// More information is in docs/data_structures/stack.md
 
 // Stack is a data structure that implements FIFO (first in, first out) interface
 type Stack[T any] struct {
