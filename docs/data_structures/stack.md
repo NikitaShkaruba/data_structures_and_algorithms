@@ -1,6 +1,6 @@
 # Stack
 
-Last in → First out. Push, peek, pop works very fast in `O(1)` time, which is good.
+Last in → First out. Push, peek, pop work very fast in `O(1)` time, which is good.
 It's mainly when you need to work with the latest inserted value.
 
 You can implement it simply like an array:
