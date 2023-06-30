@@ -11,4 +11,4 @@ poppedValue := s[len(s)-1] // peek
 s = s[:len(s)-1]           // pop
 ```
 
-Or you can use my [generic stack data structure](../../src/data_structures/stack.go)
+Or you can use my generic stack data structure. Source code: [src/data_structures/stack.go](../../src/data_structures/stack.go)
