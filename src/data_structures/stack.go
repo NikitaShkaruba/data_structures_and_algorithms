@@ -1,9 +1,9 @@
 package data_structures
 
 ////////////////////// Stack //////////////////////
-// More information is in docs/data_structures/stack.md
+// You can find this data structure overview in docs/data_structures/stack.md
+// TODO: start using linked list instead of a memory leaky array
 
-// Stack is a data structure that implements FIFO (first in, first out) interface
 type Stack[T any] struct {
 	arr []T
 }

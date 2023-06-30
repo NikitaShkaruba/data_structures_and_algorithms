@@ -3,7 +3,7 @@ package data_structures
 import "src/src/stdlib"
 
 ////////////////////// Segment Tree //////////////////////
-// More information is in docs/data_structures/segment_tree.md
+// You can find this data structure overview in docs/data_structures/segment_tree.md
 
 type SegmentTree[T stdlib.Ordered] struct {
 	nums []T
