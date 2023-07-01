@@ -3,6 +3,7 @@ package data_structures
 import "container/heap"
 
 ////////////////////// Indexed Heap //////////////////////
+// You can find this data structure overview in docs/data_structures/indexed_heap.md
 
 // IndexedHeap is almost identical to Heap, but allows to remove elements by value for O(logn) time, O(1) space.
 // Also, it doesn't spend memory for storing duplicate values.
@@ -37,7 +38,7 @@ func NewIndexedHeapFromArray[T comparable](arr []T, comparator func(a, b T) bool
 
 // Push works in O(logn) time, O(1) space
 func (h *IndexedHeap[T]) Push(val T) {
-	if h.valueCounts[val] == 0 {
+	if !h.Contains(val) {
 		heap.Push(h.adapter, val)
 	}
 
@@ -50,7 +51,7 @@ func (h *IndexedHeap[T]) Pop() T {
 	val := h.adapter.Peek().(T)
 
 	h.valueCounts[val]--
-	if h.valueCounts[val] == 0 {
+	if !h.Contains(val) {
 		heap.Pop(h.adapter)
 		delete(h.valueCounts, val)
 	}
@@ -67,12 +68,12 @@ func (h *IndexedHeap[T]) Peek() T {
 
 // RemoveByValue works in O(logn) time, O(1) space
 func (h *IndexedHeap[T]) RemoveByValue(val T) bool {
-	if h.valueCounts[val] == 0 {
+	if !h.Contains(val) {
 		return false
 	}
 
 	h.valueCounts[val]--
-	if h.valueCounts[val] == 0 {
+	if !h.Contains(val) {
 		h.adapter.removeByValue(val)
 		delete(h.valueCounts, val)
 	}
@@ -80,6 +81,11 @@ func (h *IndexedHeap[T]) RemoveByValue(val T) bool {
 	h.size--
 
 	return true
+}
+
+// Contains works in O(1) time, O(1) space
+func (h *IndexedHeap[T]) Contains(val T) bool {
+	return h.valueCounts[val] == 0
 }
 
 // GetSize works in O(1) time, O(1) space
