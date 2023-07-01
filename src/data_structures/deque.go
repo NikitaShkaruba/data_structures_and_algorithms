@@ -1,6 +1,7 @@
 package data_structures
 
 ////////////////////// Deque //////////////////////
+// You can find this data structure overview in docs/data_structures/deque.md
 
 // Deque is a double ended queue that can push and pop from both ends for O(1) time, O(1) space
 type Deque[T any] struct {
