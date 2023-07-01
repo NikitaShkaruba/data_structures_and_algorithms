@@ -620,7 +620,7 @@ func (h *IndexedHeap[T]) RemoveByValue(val T) bool {
 
 // Contains works in O(1) time, O(1) space
 func (h *IndexedHeap[T]) Contains(val T) bool {
-	return h.valueCounts[val] == 0
+	return h.valueCounts[val] != 0
 }
 
 // GetSize works in O(1) time, O(1) space
