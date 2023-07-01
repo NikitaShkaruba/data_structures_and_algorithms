@@ -14,7 +14,8 @@ enjoying the library I deserve.
 ### My problems with standard go library
 
 - No generics support - I've defined too much `Max`, `Min`, `Abs`, ... functions in my solutions manually
-- Awful heap interface - who came up with [this sh*t](https://pkg.go.dev/container/heap)??? In order to use it you need
+- Awful heap interface - who came up with [this sh*t](https://pkg.go.dev/container/heap#example-package-IntHeap)??? It's too complicated!!!
+In order to use it you need
 to define it, and there's a lot of error-prone code
 - Not enough data structures. There is no `AVL tree`, `Trie`, `Union-find`, ...
 
