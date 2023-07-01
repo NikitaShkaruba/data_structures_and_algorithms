@@ -1,6 +1,7 @@
 package data_structures
 
 ////////////////////// AVL tree //////////////////////
+// You can find this data structure overview in docs/data_structures/avl_tree.md
 
 // Code for AVL tree was copied from the internet and refactored, because of that it's not of the highest quality
 
