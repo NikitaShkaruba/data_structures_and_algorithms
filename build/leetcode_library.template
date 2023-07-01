@@ -16,6 +16,7 @@
 //////////////////////////////////////////////////////////////////////
 
 ////////////////////// AVL tree //////////////////////
+// You can find this data structure overview in docs/data_structures/avl_tree.md
 
 // Code for AVL tree was copied from the internet and refactored, because of that it's not of the highest quality
 
@@ -327,6 +328,7 @@ func getChildrenHeightDiff[T comparable](n *AvlTreeNode[T]) int {
 }
 
 ////////////////////// Deque //////////////////////
+// You can find this data structure overview in docs/data_structures/deque.md
 
 // Deque is a double ended queue that can push and pop from both ends for O(1) time, O(1) space
 type Deque[T any] struct {
@@ -447,6 +449,7 @@ func NewDoublyLinkedList[T any](arr []T) (*DoublyLinkedListNode[T], *DoublyLinke
 
 
 ////////////////////// Heap //////////////////////
+// You can find this data structure overview in docs/data_structures/heap.md
 
 // Heap is a data structure that can retrieve the min/max element in O(logn) time, O(1) space, and insert a new element in O(logn) time, O(1) space
 type Heap[T any] struct {
@@ -535,6 +538,7 @@ func (a stdlibHeapAdapter[T]) Len() int {
 
 
 ////////////////////// Indexed Heap //////////////////////
+// You can find this data structure overview in docs/data_structures/indexed_heap.md
 
 // IndexedHeap is almost identical to Heap, but allows to remove elements by value for O(logn) time, O(1) space.
 // Also, it doesn't spend memory for storing duplicate values.
@@ -569,7 +573,7 @@ func NewIndexedHeapFromArray[T comparable](arr []T, comparator func(a, b T) bool
 
 // Push works in O(logn) time, O(1) space
 func (h *IndexedHeap[T]) Push(val T) {
-	if h.valueCounts[val] == 0 {
+	if !h.Contains(val) {
 		heap.Push(h.adapter, val)
 	}
 
@@ -582,7 +586,7 @@ func (h *IndexedHeap[T]) Pop() T {
 	val := h.adapter.Peek().(T)
 
 	h.valueCounts[val]--
-	if h.valueCounts[val] == 0 {
+	if !h.Contains(val) {
 		heap.Pop(h.adapter)
 		delete(h.valueCounts, val)
 	}
@@ -599,12 +603,12 @@ func (h *IndexedHeap[T]) Peek() T {
 
 // RemoveByValue works in O(logn) time, O(1) space
 func (h *IndexedHeap[T]) RemoveByValue(val T) bool {
-	if h.valueCounts[val] == 0 {
+	if !h.Contains(val) {
 		return false
 	}
 
 	h.valueCounts[val]--
-	if h.valueCounts[val] == 0 {
+	if !h.Contains(val) {
 		h.adapter.removeByValue(val)
 		delete(h.valueCounts, val)
 	}
@@ -612,6 +616,11 @@ func (h *IndexedHeap[T]) RemoveByValue(val T) bool {
 	h.size--
 
 	return true
+}
+
+// Contains works in O(1) time, O(1) space
+func (h *IndexedHeap[T]) Contains(val T) bool {
+	return h.valueCounts[val] == 0
 }
 
 // GetSize works in O(1) time, O(1) space
