@@ -5,6 +5,7 @@ import (
 )
 
 ////////////////////// Heap //////////////////////
+// You can find this data structure overview in docs/data_structures/heap.md
 
 // Heap is a data structure that can retrieve the min/max element in O(logn) time, O(1) space, and insert a new element in O(logn) time, O(1) space
 type Heap[T any] struct {
