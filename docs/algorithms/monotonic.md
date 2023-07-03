@@ -1,3 +1,5 @@
+# Monotonic
+
 Monotonic data structure is an array-like structure that is always sorted - this property helps to keep good time complexity by not iterating over all the elements.
 
 Monotonic stacks and queues are useful in problems that, for each element, involves finding the "next" element based on some criteria, for example, the next greater element.

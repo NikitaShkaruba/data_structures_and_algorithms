@@ -1,6 +1,5 @@
 # Prefix sum
 
-
 Prefix sum precomputes sums of arrays, letting us later do quick range queries for `O(1)` time instead of usual `O(n)` time.
 The one downside of this pattern is extra `O(n)` space, but it's well worth it, extra space is okay for most solutions.
 The next level of this pattern is [Segment tree](../../src/data_structures/segment_tree.go).
