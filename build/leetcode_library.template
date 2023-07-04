@@ -409,6 +409,7 @@ func (d *Deque[T]) GetSize() int {
 }
 
 ////////////////////// Doubly Linked List //////////////////////
+// You can find this data structure overview in docs/data_structures/linked_list.md
 
 // DoublyLinkedListNode is a linked list node with pointers to the previous and next nodes
 type DoublyLinkedListNode[T any] struct {
@@ -837,6 +838,7 @@ func (s *segment[T]) sumRange(l, r int) T {
 }
 
 ////////////////////// Singly Linked List //////////////////////
+// You can find this data structure overview in docs/data_structures/linked_list.md
 
 // SinglyLinkedListNode is a linked list node with a pointer to the next node
 type SinglyLinkedListNode[T any] struct {
