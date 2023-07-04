@@ -1,6 +1,7 @@
 package data_structures
 
 ////////////////////// Singly Linked List //////////////////////
+// You can find this data structure overview in docs/data_structures/linked_list.md
 
 // SinglyLinkedListNode is a linked list node with a pointer to the next node
 type SinglyLinkedListNode[T any] struct {

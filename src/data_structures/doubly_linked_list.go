@@ -1,6 +1,7 @@
 package data_structures
 
 ////////////////////// Doubly Linked List //////////////////////
+// You can find this data structure overview in docs/data_structures/linked_list.md
 
 // DoublyLinkedListNode is a linked list node with pointers to the previous and next nodes
 type DoublyLinkedListNode[T any] struct {
