@@ -6,17 +6,20 @@
 
 ### About
 
-Standard go library  weak and inconvenient for leetcoding, so I've decided to write a good library myself.
-I've defined all the generic data structures and generic misc functions in `src`, then with `tools/leetcode_library_template_builder`
-I concatenate all the files to `build/leetcode_library.template`, which I later copy-paste to every leetcode solution,
-enjoying the library I deserve.
+Standard go library is pretty weak and inconvenient for leetcoding, so I've decided to write a good go library myself.
+I've defined all the generic data structures and generic misc functions in [src](./src), then with [leetcode_library_template_builder](./tools/leetcode_library_template_builder/main.go)
+I concatenate all the files to [leetcode_library.template](./build/leetcode_library.template), which I later copy-paste to every leetcode solution,
+enjoying the library I deserve...
+
+Also, I have all the algorithm and data structures explained in [docs](docs) directory, check it out!
+Those explanations contain some code snippets I haven't included in [leetcode_library.template](./build/leetcode_library.template),
+because I think you should quickly code them yourself, and don't rely on the library heavily.
 
 ### My problems with standard go library
 
-- No generics support - I've defined too much `Max`, `Min`, `Abs`, ... functions in my solutions manually
+- No generics support - I've defined too much `Max`, `Min`, `Abs`, `...` functions in my solutions manually
 - Awful heap interface - who came up with [this sh*t](https://pkg.go.dev/container/heap#example-package-IntHeap)??? It's too complicated!!!
-In order to use it you need
-to define it, and there's a lot of error-prone code
+In order to use it you need to specify a lot of error-prone code
 - Not enough data structures. There is no `AVL tree`, `Trie`, `Union-find`, ...
 
 ### Project structure
