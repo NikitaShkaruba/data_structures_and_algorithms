@@ -1,8 +1,17 @@
 # Binary tree
 
-Binary tree is basically a **directed graphs** with **single connected component** and **without cycles**
+Binary tree is basically a **directed graphs** with a **single connected component** and **without cycles**
 
 If every element on the left if lesser then the value of the current node and every element on the right is bigger then the value of the current node, this tree is **Binary Search Tree**
+
+Binary tree contains of nodes with the next standard definition:
+```go
+type Node struct {
+	val   int
+	Left  *Node
+	Right *Node
+}
+```
 
 ### Traversals
 
