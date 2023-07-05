@@ -7,7 +7,7 @@ If every element on the left if lesser then the value of the current node and ev
 Binary tree contains of nodes with the next standard definition:
 ```go
 type Node struct {
-	val   int
+	Val   int
 	Left  *Node
 	Right *Node
 }
@@ -25,8 +25,8 @@ func dfs(node *Node) {
 	}
 
 	// Do some logic in this node
-	dfs(node.left)
-	dfs(node.right)
+	dfs(node.Left)
+	dfs(node.Right)
 }
 ```
 
@@ -38,9 +38,9 @@ func dfs(node *Node) {
 		return
 	}
 
-	dfs(node.left)
+	dfs(node.Left)
 	// Do some logic in this node
-	dfs(node.right)
+	dfs(node.Right)
 }
 ```
 
@@ -52,8 +52,8 @@ func dfs(node *Node) {
 		return
 	}
 
-	dfs(node.left)
-	dfs(node.right)
+	dfs(node.Left)
+	dfs(node.Right)
 	// Do some logic in this node
 }
 ```
@@ -85,4 +85,28 @@ func bfs(root *Node) []int {
 		level++
 	}
 }
+```
+
+### Binary search
+
+If your tree is sorted, you can use [binary search](../algorithms/binary_search.md) to quickly find if a value is
+contained in a tree for `O(logn)` time.
+
+```go
+func binarySearch(node *Node, target int) bool {
+	if node == nil {
+		return false
+	}
+
+	if node.Val == target {
+		return true
+	}
+
+	if target < node.Val {
+		return binarySearch(node.Left)
+	} else {
+		return binarySearch(node.Right)
+	}
+}
+
 ```
