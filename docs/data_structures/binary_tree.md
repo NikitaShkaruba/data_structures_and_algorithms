@@ -4,22 +4,16 @@ Binary tree is basically a **directed graphs** with a **single connected compone
 
 If every element on the left if lesser then the value of the current node and every element on the right is bigger then the value of the current node, this tree is **Binary Search Tree**
 
-Binary tree contains of nodes with the next standard definition:
-```go
-type Node struct {
-	Val   int
-	Left  *Node
-	Right *Node
-}
-```
+Source code: [src/data_structures/binary_tree.go](../../src/data_structures/binary_tree.go)
 
 ### Traversals
 
 You can traverse binary trees via `Depth First Search` or `Breadth First Search`. 
 
 Pre-order DFS traversal:
+
 ```go
-func dfs(node *Node) {
+func dfs[T any](node *data_structures.BinaryTreeNode[T]) {
 	if node == nil {
 		return
 	}
@@ -29,11 +23,11 @@ func dfs(node *Node) {
 	dfs(node.Right)
 }
 ```
-
 
 In-order DFS traversal (gives you a sorted array if you have a binary search (!) tree):
+
 ```go
-func dfs(node *Node) {
+func dfs[T any](node *data_structures.BinaryTreeNode[T]) {
 	if node == nil {
 		return
 	}
@@ -44,10 +38,10 @@ func dfs(node *Node) {
 }
 ```
 
-
 Post-order DFS traversal:
+
 ```go
-func dfs(node *Node) {
+func dfs[T any](node *data_structures.BinaryTreeNode[T]) {
 	if node == nil {
 		return
 	}
@@ -61,8 +55,10 @@ func dfs(node *Node) {
 Level-order BFS traversal:
 
 ```go
-func bfs(root *Node) []int {
-	queue := data_structures.NewQueueFromArray([]*Node{root})
+func bfs[T any](root *data_structures.BinaryTreeNode[T]) {
+	queue := data_structures.NewQueueFromArray(
+		[]*data_structures.BinaryTreeNode[T]{root},
+	)
 	level := 0
 
 	for queue.GetSize() != 0 {
@@ -75,16 +71,17 @@ func bfs(root *Node) []int {
 			// Do some logic in this node
 
 			if node.Left != nil {
-				queue = queue.Enqueue(node.Left)
+				queue.Enqueue(node.Left)
 			}
 			if node.Right != nil {
-				queue = queue.Enqueue(node.Right)
+				queue.Enqueue(node.Right)
 			}
 		}
 
 		level++
 	}
 }
+
 ```
 
 ### Binary search
@@ -93,7 +90,7 @@ If your tree is sorted, you can use [binary search](../algorithms/binary_search.
 contained in a tree for `O(logn)` time.
 
 ```go
-func binarySearch(node *Node, target int) bool {
+func binarySearch(node *data_structures.BinaryTreeNode[int], target int) bool {
 	if node == nil {
 		return false
 	}
@@ -103,10 +100,9 @@ func binarySearch(node *Node, target int) bool {
 	}
 
 	if target < node.Val {
-		return binarySearch(node.Left)
+		return binarySearch(node.Left, target)
 	} else {
-		return binarySearch(node.Right)
+		return binarySearch(node.Right, target)
 	}
 }
-
 ```
