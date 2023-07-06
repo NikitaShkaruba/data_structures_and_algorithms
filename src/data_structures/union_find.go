@@ -1,6 +1,7 @@
 package data_structures
 
 ////////////////////// Union Find //////////////////////
+// You can find this data structure overview in docs/data_structures/union_find.md
 
 type UnionFind struct {
 	sizeMap        []int
