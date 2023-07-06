@@ -1,6 +1,7 @@
 package data_structures
 
 /////////////////// Trie Definition ///////////////////
+// You can find this data structure overview in docs/data_structures/trie.md
 
 // Trie is a data structure that stores multiple strings and allows to find substrings and string for O(n) time, O(1) space
 type Trie struct {
