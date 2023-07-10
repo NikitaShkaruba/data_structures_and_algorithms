@@ -576,11 +576,13 @@ type IndexedHeap[T comparable] struct {
 }
 
 // NewEmptyIndexedHeap works in O(1) time, O(1) space
+// comparator should contain a < b if you want a min heap, and a > b if you want a max heap
 func NewEmptyIndexedHeap[T comparable](comparator func(a, b T) bool) *IndexedHeap[T] {
 	return NewIndexedHeapFromArray(make([]T, 0), comparator)
 }
 
 // NewIndexedHeapFromArray works in O(n) time, O(n) space
+// comparator should contain a < b if you want a min heap, and a > b if you want a max heap
 func NewIndexedHeapFromArray[T comparable](arr []T, comparator func(a, b T) bool) *IndexedHeap[T] {
 	uniqueValues := make([]T, 0)
 	valueCounts := make(map[T]int)
