@@ -77,13 +77,20 @@ It's even easier to do with [Union-Find](../data_structures/union_find.md) by th
 - Can find the shortest path possible
 - Harder to implement than DFS, but finds a path too, so use it only when necessary
 
-### Tree-graphs
+### Dijkstra’s algorithm
+
+See [docs/algorithms/dijkstra.md](./dijkstra.md)
+
+
+### Non basic type of graphs
+
+#### Tree-graphs
 
 - If a graph has `n` nodes and `n-1` edges, it’s a tree with possibly more than 2 children.
 - There will be no cycles
 - E.g. https://leetcode.com/problems/reorder-routes-to-make-all-paths-lead-to-the-city-zero/description/
 
-### Bipartite graph
+#### Bipartite graph
 
 A bipartite graph (or bigraph) is a graph whose vertices can be divided into two disjoint and independent sets U and V
 where there aren't any edges between nodes of the same set. It can be solved with Union Find.
