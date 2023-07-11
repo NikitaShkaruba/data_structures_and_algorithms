@@ -23,7 +23,7 @@ func DijkstraToEvery(edges map[int]map[int]int, sourceId int) map[int]int {
 
 var unspecifiedTargetNodeId = math.MaxInt
 
-type Edge struct {
+type DijkstraEdge struct {
 	to   int
 	cost int
 }
@@ -34,13 +34,13 @@ func dijkstra(edges map[int]map[int]int, sourceId int, targetId int) map[int]int
 	minPaths := make(map[int]int)
 
 	h := newDijkstraIndexedHeap()
-	heap.Push(&h, Edge{
+	heap.Push(&h, DijkstraEdge{
 		to:   sourceId,
 		cost: 0,
 	})
 
 	for len(h.values) != 0 {
-		maxCostEdge := heap.Pop(&h).(Edge)
+		maxCostEdge := heap.Pop(&h).(DijkstraEdge)
 		minPaths[maxCostEdge.to] = maxCostEdge.cost
 
 		// Only needed in DijkstraToDestination
@@ -55,7 +55,7 @@ func dijkstra(edges map[int]map[int]int, sourceId int, targetId int) map[int]int
 			}
 
 			costOfGoingToNeighbour := edges[maxCostEdge.to][neighbourNode]
-			newEdge := Edge{
+			newEdge := DijkstraEdge{
 				to:   neighbourNode,
 				cost: maxCostEdge.cost + costOfGoingToNeighbour,
 			}
@@ -77,13 +77,13 @@ func dijkstra(edges map[int]map[int]int, sourceId int, targetId int) map[int]int
 // TODO: reuse heap from data_structures
 
 type DijkstraIndexedHeap struct {
-	values       []Edge
+	values       []DijkstraEdge
 	valueIndexes map[int]int
 }
 
 func newDijkstraIndexedHeap() DijkstraIndexedHeap {
 	return DijkstraIndexedHeap{
-		values:       make([]Edge, 0),
+		values:       make([]DijkstraEdge, 0),
 		valueIndexes: make(map[int]int),
 	}
 }
@@ -93,7 +93,7 @@ func (h DijkstraIndexedHeap) Less(i, j int) bool {
 	return h.values[i].cost < h.values[j].cost
 }
 func (h *DijkstraIndexedHeap) Push(x interface{}) {
-	val := x.(Edge)
+	val := x.(DijkstraEdge)
 
 	h.values = append(h.values, val)
 	h.valueIndexes[val.to] = len(h.values) - 1
@@ -122,7 +122,7 @@ func (h *DijkstraIndexedHeap) removeByNodeId(toNodeId int) {
 
 	heap.Remove(h, i)
 }
-func (h *DijkstraIndexedHeap) updateByNodeId(toNodeId int, edge Edge) {
+func (h *DijkstraIndexedHeap) updateByNodeId(toNodeId int, edge DijkstraEdge) {
 	i, ok := h.valueIndexes[toNodeId]
 	if !ok {
 		return
@@ -131,10 +131,10 @@ func (h *DijkstraIndexedHeap) updateByNodeId(toNodeId int, edge Edge) {
 	heap.Remove(h, i)
 	heap.Push(h, edge)
 }
-func (h *DijkstraIndexedHeap) getByNodeId(toNodeId int) (Edge, bool) {
+func (h *DijkstraIndexedHeap) getByNodeId(toNodeId int) (DijkstraEdge, bool) {
 	i, ok := h.valueIndexes[toNodeId]
 	if !ok {
-		return Edge{}, false
+		return DijkstraEdge{}, false
 	}
 
 	return h.values[i], true
