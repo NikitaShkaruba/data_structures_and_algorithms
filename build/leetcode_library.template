@@ -18,20 +18,20 @@
 //////////////////////// Dijkstra high-level ////////////////////////
 // You can find this data structure overview in docs/algorithms/dijkstra.md
 
-// DijkstraToTarget finds the shortest paths to every node in a sourceId connected component
-func DijkstraToTarget(edges map[int]map[int]int, sourceId int, destinationId int) int {
-	minPaths := dijkstra(edges, sourceId, destinationId)
-	return minPaths[destinationId]
+// DijkstraToTarget finds the shortest path from sourceId to targetId in a sourceId connected component
+func DijkstraToTarget(edges map[int]map[int]int, sourceId int, targetId int) int {
+	minPaths := dijkstra(edges, sourceId, targetId)
+	return minPaths[targetId]
 }
 
-// DijkstraToEvery finds the shortest paths to every node in a sourceId connected component
+// DijkstraToEvery finds the shortest path from sourceId to every node in a sourceId connected component
 func DijkstraToEvery(edges map[int]map[int]int, sourceId int) map[int]int {
-	return dijkstra(edges, sourceId, unspecifiedTargetNodeId)
+	return dijkstra(edges, sourceId, unspecifiedTargetId)
 }
 
 //////////////////////// Dijkstra low-level ////////////////////////
 
-var unspecifiedTargetNodeId = math.MaxInt
+var unspecifiedTargetId = math.MaxInt
 
 type DijkstraEdge struct {
 	to   int
@@ -54,7 +54,7 @@ func dijkstra(edges map[int]map[int]int, sourceId int, targetId int) map[int]int
 		minPaths[maxCostEdge.to] = maxCostEdge.cost
 
 		// Only needed in DijkstraToDestination
-		if targetId != unspecifiedTargetNodeId && maxCostEdge.to == targetId {
+		if targetId != unspecifiedTargetId && maxCostEdge.to == targetId {
 			return minPaths
 		}
 
