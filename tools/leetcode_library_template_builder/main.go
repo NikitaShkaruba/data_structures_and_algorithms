@@ -57,8 +57,7 @@ const header = `////////////////////////// Leetcode library ////////////////////
 //                                                                  //
 // Library usage example:                                           //
 // https://leetcode.com/submissions/detail/978392175                //
-//////////////////////////////////////////////////////////////////////
-`
+//////////////////////////////////////////////////////////////////////`
 
 func concatenateSourceFiles(outputFile *os.File, sourceFilePaths []string) error {
 	fmt.Println("Writing output file parts:")
@@ -103,11 +102,6 @@ func getSourceFilePaths() ([]string, error) {
 
 		// Only pass not test.go files
 		if len(path) > 8 && path[len(path)-8:] == "_test.go" {
-			return nil
-		}
-
-		// Ignore algorithms folder
-		if len(path) > 13 && path[:14] == "src/algorithms" {
 			return nil
 		}
 
