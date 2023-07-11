@@ -7,36 +7,36 @@ import (
 
 //////////////////////// Dijkstra high-level ////////////////////////
 // You can find this data structure overview in docs/algorithms/dijkstra.md
-// TODO: make weight a templated parameter
-// TODO: add to leetcode_library.template
 
-func DijkstraToDestination(edges map[int]map[int]float64, sourceId int, destinationId int) float64 {
+// DijkstraToTarget finds the shortest paths to every node in a sourceId connected component
+func DijkstraToTarget(edges map[int]map[int]int, sourceId int, destinationId int) int {
 	minPaths := dijkstra(edges, sourceId, destinationId)
 	return minPaths[destinationId]
 }
 
-func DijkstraToEvery(edges map[int]map[int]float64, sourceId int) map[int]float64 {
-	return dijkstra(edges, sourceId, prematureExitNotNeeded)
+// DijkstraToEvery finds the shortest paths to every node in a sourceId connected component
+func DijkstraToEvery(edges map[int]map[int]int, sourceId int) map[int]int {
+	return dijkstra(edges, sourceId, unspecifiedTargetNodeId)
 }
 
 //////////////////////// Dijkstra low-level ////////////////////////
 
-var prematureExitNotNeeded = math.MaxInt
+var unspecifiedTargetNodeId = math.MaxInt
 
 type Edge struct {
 	to   int
-	cost float64
+	cost int
 }
 
 // Time complexity: O(E * log(V))
 // Space complexity: O(V)
-func dijkstra(edges map[int]map[int]float64, sourceId int, exitPrematurelyOnDestination int) map[int]float64 {
-	minPaths := make(map[int]float64)
+func dijkstra(edges map[int]map[int]int, sourceId int, targetId int) map[int]int {
+	minPaths := make(map[int]int)
 
-	h := newIndexedHeap()
+	h := newDijkstraIndexedHeap()
 	heap.Push(&h, Edge{
 		to:   sourceId,
-		cost: 1,
+		cost: 0,
 	})
 
 	for len(h.values) != 0 {
@@ -44,7 +44,7 @@ func dijkstra(edges map[int]map[int]float64, sourceId int, exitPrematurelyOnDest
 		minPaths[maxCostEdge.to] = maxCostEdge.cost
 
 		// Only needed in DijkstraToDestination
-		if exitPrematurelyOnDestination != prematureExitNotNeeded && maxCostEdge.to == exitPrematurelyOnDestination {
+		if targetId != unspecifiedTargetNodeId && maxCostEdge.to == targetId {
 			return minPaths
 		}
 
@@ -57,11 +57,11 @@ func dijkstra(edges map[int]map[int]float64, sourceId int, exitPrematurelyOnDest
 			costOfGoingToNeighbour := edges[maxCostEdge.to][neighbourNode]
 			newEdge := Edge{
 				to:   neighbourNode,
-				cost: maxCostEdge.cost * costOfGoingToNeighbour,
+				cost: maxCostEdge.cost + costOfGoingToNeighbour,
 			}
 
 			if existingEdge, existsInHeap := h.getByNodeId(neighbourNode); existsInHeap {
-				if newEdge.cost > existingEdge.cost {
+				if newEdge.cost < existingEdge.cost {
 					h.updateByNodeId(neighbourNode, newEdge)
 				}
 			} else {
@@ -73,36 +73,32 @@ func dijkstra(edges map[int]map[int]float64, sourceId int, exitPrematurelyOnDest
 	return minPaths
 }
 
-//////////////////////// Indexed Heap Definition ////////////////////////
+//////////////////////// Dijkstra Indexed Heap ////////////////////////
 // TODO: reuse heap from data_structures
 
-type IndexedHeap struct {
+type DijkstraIndexedHeap struct {
 	values       []Edge
 	valueIndexes map[int]int
 }
 
-//////////////////////// Indexed Heap Constructors ////////////////////////
-
-func newIndexedHeap() IndexedHeap {
-	return IndexedHeap{
+func newDijkstraIndexedHeap() DijkstraIndexedHeap {
+	return DijkstraIndexedHeap{
 		values:       make([]Edge, 0),
 		valueIndexes: make(map[int]int),
 	}
 }
 
-//////////////////////// Indexed Heap Methods ////////////////////////
-
-func (h IndexedHeap) Less(i, j int) bool {
+func (h DijkstraIndexedHeap) Less(i, j int) bool {
 	// Max heap
-	return h.values[i].cost > h.values[j].cost
+	return h.values[i].cost < h.values[j].cost
 }
-func (h *IndexedHeap) Push(x interface{}) {
+func (h *DijkstraIndexedHeap) Push(x interface{}) {
 	val := x.(Edge)
 
 	h.values = append(h.values, val)
 	h.valueIndexes[val.to] = len(h.values) - 1
 }
-func (h *IndexedHeap) Pop() interface{} {
+func (h *DijkstraIndexedHeap) Pop() interface{} {
 	val := (h.values)[len(h.values)-1]
 
 	h.values = h.values[:len(h.values)-1]
@@ -110,15 +106,15 @@ func (h *IndexedHeap) Pop() interface{} {
 
 	return val
 }
-func (h IndexedHeap) Swap(i, j int) {
+func (h DijkstraIndexedHeap) Swap(i, j int) {
 	h.valueIndexes[h.values[i].to], h.valueIndexes[h.values[j].to] = h.valueIndexes[h.values[j].to], h.valueIndexes[h.values[i].to]
 	h.values[i], h.values[j] = h.values[j], h.values[i]
 }
-func (h IndexedHeap) Len() int {
+func (h DijkstraIndexedHeap) Len() int {
 	return len(h.values)
 }
 
-func (h *IndexedHeap) removeByNodeId(toNodeId int) {
+func (h *DijkstraIndexedHeap) removeByNodeId(toNodeId int) {
 	i, ok := h.valueIndexes[toNodeId]
 	if !ok {
 		return
@@ -126,7 +122,7 @@ func (h *IndexedHeap) removeByNodeId(toNodeId int) {
 
 	heap.Remove(h, i)
 }
-func (h *IndexedHeap) updateByNodeId(toNodeId int, edge Edge) {
+func (h *DijkstraIndexedHeap) updateByNodeId(toNodeId int, edge Edge) {
 	i, ok := h.valueIndexes[toNodeId]
 	if !ok {
 		return
@@ -135,7 +131,7 @@ func (h *IndexedHeap) updateByNodeId(toNodeId int, edge Edge) {
 	heap.Remove(h, i)
 	heap.Push(h, edge)
 }
-func (h *IndexedHeap) getByNodeId(toNodeId int) (Edge, bool) {
+func (h *DijkstraIndexedHeap) getByNodeId(toNodeId int) (Edge, bool) {
 	i, ok := h.valueIndexes[toNodeId]
 	if !ok {
 		return Edge{}, false
