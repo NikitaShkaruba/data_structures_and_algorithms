@@ -60,6 +60,7 @@ func dijkstra(edges map[int]map[int]int, sourceId int, targetId int) map[int]int
 				cost: maxCostEdge.cost + costOfGoingToNeighbour,
 			}
 
+			// Try to replace existing edge if your path is faster.
 			if existingEdge, existsInHeap := h.getByNodeId(neighbourNode); existsInHeap {
 				if newEdge.cost < existingEdge.cost {
 					h.updateByNodeId(neighbourNode, newEdge)
@@ -74,8 +75,9 @@ func dijkstra(edges map[int]map[int]int, sourceId int, targetId int) map[int]int
 }
 
 //////////////////////// Dijkstra Indexed Heap ////////////////////////
-// TODO: reuse heap from data_structures
 
+// DijkstraIndexedHeap heap is a modified version of indexed heap that stores
+// edges in values, and allows to access them by nodeId
 type DijkstraIndexedHeap struct {
 	values       []DijkstraEdge
 	valueIndexes map[int]int
@@ -92,12 +94,14 @@ func (h DijkstraIndexedHeap) Less(i, j int) bool {
 	// Max heap
 	return h.values[i].cost < h.values[j].cost
 }
+
 func (h *DijkstraIndexedHeap) Push(x interface{}) {
 	val := x.(DijkstraEdge)
 
 	h.values = append(h.values, val)
 	h.valueIndexes[val.to] = len(h.values) - 1
 }
+
 func (h *DijkstraIndexedHeap) Pop() interface{} {
 	val := (h.values)[len(h.values)-1]
 
@@ -106,10 +110,12 @@ func (h *DijkstraIndexedHeap) Pop() interface{} {
 
 	return val
 }
+
 func (h DijkstraIndexedHeap) Swap(i, j int) {
 	h.valueIndexes[h.values[i].to], h.valueIndexes[h.values[j].to] = h.valueIndexes[h.values[j].to], h.valueIndexes[h.values[i].to]
 	h.values[i], h.values[j] = h.values[j], h.values[i]
 }
+
 func (h DijkstraIndexedHeap) Len() int {
 	return len(h.values)
 }
@@ -122,6 +128,7 @@ func (h *DijkstraIndexedHeap) removeByNodeId(toNodeId int) {
 
 	heap.Remove(h, i)
 }
+
 func (h *DijkstraIndexedHeap) updateByNodeId(toNodeId int, edge DijkstraEdge) {
 	i, ok := h.valueIndexes[toNodeId]
 	if !ok {
@@ -131,6 +138,7 @@ func (h *DijkstraIndexedHeap) updateByNodeId(toNodeId int, edge DijkstraEdge) {
 	heap.Remove(h, i)
 	heap.Push(h, edge)
 }
+
 func (h *DijkstraIndexedHeap) getByNodeId(toNodeId int) (DijkstraEdge, bool) {
 	i, ok := h.valueIndexes[toNodeId]
 	if !ok {
