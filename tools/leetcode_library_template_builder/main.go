@@ -128,6 +128,9 @@ func cutUnnecessaryFromLibraryPiece(libraryPiece string) string {
 	// Cut down stdlib package
 	libraryPiece = regexp.MustCompile("stdlib\\.").ReplaceAllString(libraryPiece, "")
 
+	// Cut down imports from other packages
+	libraryPiece = regexp.MustCompile("data_structures\\.").ReplaceAllString(libraryPiece, "")
+
 	return libraryPiece
 }
 
