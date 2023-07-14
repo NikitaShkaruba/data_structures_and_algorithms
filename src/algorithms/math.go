@@ -1,7 +1,7 @@
 package algorithms
 
 ////////////////////////// Prime factors //////////////////////////
-// You can find this data structure overview in docs/algorithms/math.md
+// You can find this algorithms overview in docs/algorithms/math.md
 
 func GetPrimeFactors(number int, maxNumber int) []int {
 	sieve := buildPrimeDividers(maxNumber)

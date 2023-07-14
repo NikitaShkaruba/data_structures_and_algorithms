@@ -5,7 +5,7 @@ import (
 )
 
 //////////////////////// Eager dijkstra high-level ////////////////////////
-// You can find this data structure overview in docs/algorithms/dijkstra.md
+// You can find this algorithm overview in docs/algorithms/dijkstra.md
 
 // EagerDijkstraToTarget finds the shortest path from sourceId to targetId in a sourceId connected component
 func EagerDijkstraToTarget(edges map[int]map[int]int, sourceId int, targetId int) int {

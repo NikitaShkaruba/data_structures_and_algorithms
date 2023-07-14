@@ -6,7 +6,7 @@ import (
 )
 
 //////////////////////// Dijkstra high-level ////////////////////////
-// You can find this data structure overview in docs/algorithms/dijkstra.md
+// You can find this algorithm overview in docs/algorithms/dijkstra.md
 
 // DijkstraToTarget finds the shortest path from sourceId to targetId in a sourceId connected component
 func DijkstraToTarget(edges map[int]map[int]int, sourceId int, targetId int) int {
