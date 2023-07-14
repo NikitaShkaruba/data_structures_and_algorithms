@@ -5,6 +5,13 @@ import (
 	"testing"
 )
 
+func TestGCD(t *testing.T) {
+	assert.Equal(t, 4, GCD(8, 12))
+	assert.Equal(t, 6, GCD(54, 24))
+	assert.Equal(t, 14, GCD(42, 56))
+	assert.Equal(t, 1, GCD(13, 48))
+}
+
 func TestGetPrimeFactors(t *testing.T) {
 	maxNumber := 10000
 

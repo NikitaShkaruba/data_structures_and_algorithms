@@ -1,6 +1,19 @@
 package algorithms
 
-////////////////////////// Prime factors //////////////////////////
+////////////////////////// Greatest common divider (GCD) //////////////////////////
+// You can find this algorithms overview in docs/algorithms/math.md
+
+func GCD(a, b int) int {
+	for b != 0 {
+		t := b
+		b = a % b
+		a = t
+	}
+
+	return a
+}
+
+////////////////////////// Primes factorization //////////////////////////
 // You can find this algorithms overview in docs/algorithms/math.md
 
 func GetPrimeFactors(number int, maxNumber int) []int {
