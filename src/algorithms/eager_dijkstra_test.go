@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestDijkstraOnSmallUndirectedGraph(t *testing.T) {
+func TestEagerDijkstraOnSmallUndirectedGraph(t *testing.T) {
 	edges := map[int]map[int]int{
 		0: {
 			1: 1,
@@ -25,32 +25,32 @@ func TestDijkstraOnSmallUndirectedGraph(t *testing.T) {
 		},
 	}
 
-	shortestPaths := DijkstraToEvery(edges, 0)
+	shortestPaths := EagerDijkstraToEvery(edges, 0)
 	assert.Equal(t, 0, shortestPaths[0])
 	assert.Equal(t, 1, shortestPaths[1])
 	assert.Equal(t, 3, shortestPaths[2])
 	assert.Equal(t, 6, shortestPaths[3])
 
-	shortestPaths = DijkstraToEvery(edges, 1)
+	shortestPaths = EagerDijkstraToEvery(edges, 1)
 	assert.Equal(t, 1, shortestPaths[0])
 	assert.Equal(t, 0, shortestPaths[1])
 	assert.Equal(t, 2, shortestPaths[2])
 	assert.Equal(t, 5, shortestPaths[3])
 
-	shortestPaths = DijkstraToEvery(edges, 2)
+	shortestPaths = EagerDijkstraToEvery(edges, 2)
 	assert.Equal(t, 3, shortestPaths[0])
 	assert.Equal(t, 2, shortestPaths[1])
 	assert.Equal(t, 0, shortestPaths[2])
 	assert.Equal(t, 3, shortestPaths[3])
 
-	shortestPaths = DijkstraToEvery(edges, 3)
+	shortestPaths = EagerDijkstraToEvery(edges, 3)
 	assert.Equal(t, 6, shortestPaths[0])
 	assert.Equal(t, 5, shortestPaths[1])
 	assert.Equal(t, 3, shortestPaths[2])
 	assert.Equal(t, 0, shortestPaths[3])
 }
 
-func TestDijkstraOnSmallDirectedGraph(t *testing.T) {
+func TestEagerDijkstraOnSmallDirectedGraph(t *testing.T) {
 	edges := map[int]map[int]int{
 		0: {
 			1: 5,
@@ -64,14 +64,14 @@ func TestDijkstraOnSmallDirectedGraph(t *testing.T) {
 		},
 	}
 
-	shortestPaths := DijkstraToEvery(edges, 0)
+	shortestPaths := EagerDijkstraToEvery(edges, 0)
 	assert.Equal(t, 0, shortestPaths[0])
 	assert.Equal(t, 5, shortestPaths[1])
 	assert.Equal(t, 8, shortestPaths[2])
 	assert.Equal(t, 13, shortestPaths[3])
 }
 
-func TestDijkstraOnBigDirectedGraph(t *testing.T) {
+func TestEagerDijkstraOnBigDirectedGraph(t *testing.T) {
 	// https://www.tutorialspoint.com/design_and_analysis_of_algorithms/design_and_analysis_of_algorithms_shortest_paths.htm
 	edges := map[int]map[int]int{
 		0: {1: 5, 2: 2},
@@ -84,7 +84,7 @@ func TestDijkstraOnBigDirectedGraph(t *testing.T) {
 		7: {6: 3},
 	}
 
-	shortestPaths := DijkstraToEvery(edges, 0)
+	shortestPaths := EagerDijkstraToEvery(edges, 0)
 	assert.Equal(t, 0, shortestPaths[0])
 	assert.Equal(t, 4, shortestPaths[1])
 	assert.Equal(t, 2, shortestPaths[2])
@@ -96,7 +96,7 @@ func TestDijkstraOnBigDirectedGraph(t *testing.T) {
 	assert.Equal(t, 20, shortestPaths[8])
 }
 
-func TestDijkstraToTarget(t *testing.T) {
+func TestEagerDijkstraToTargetOnSmallUndirectedGraph(t *testing.T) {
 	edges := map[int]map[int]int{
 		0: {
 			1: 1,
@@ -116,13 +116,13 @@ func TestDijkstraToTarget(t *testing.T) {
 		},
 	}
 
-	shortestPaths := DijkstraToEvery(edges, 0)
+	shortestPaths := EagerDijkstraToEvery(edges, 0)
 	assert.Equal(t, 0, shortestPaths[0])
-	assert.Equal(t, 0, DijkstraToTarget(edges, 0, 0))
+	assert.Equal(t, 0, EagerDijkstraToTarget(edges, 0, 0))
 	assert.Equal(t, 1, shortestPaths[1])
-	assert.Equal(t, 1, DijkstraToTarget(edges, 0, 1))
+	assert.Equal(t, 1, EagerDijkstraToTarget(edges, 0, 1))
 	assert.Equal(t, 3, shortestPaths[2])
-	assert.Equal(t, 3, DijkstraToTarget(edges, 0, 2))
+	assert.Equal(t, 3, EagerDijkstraToTarget(edges, 0, 2))
 	assert.Equal(t, 6, shortestPaths[3])
-	assert.Equal(t, 6, DijkstraToTarget(edges, 0, 3))
+	assert.Equal(t, 6, EagerDijkstraToTarget(edges, 0, 3))
 }
