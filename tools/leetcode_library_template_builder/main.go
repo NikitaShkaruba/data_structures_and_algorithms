@@ -6,6 +6,7 @@ import (
 	"path/filepath"
 	"regexp"
 	"src/tools"
+	"strings"
 )
 
 // This file gets the content of all the src files, and concatenates them into one, putting them into a single package.
@@ -76,7 +77,12 @@ func concatenateSourceFiles(outputFile *os.File, sourceFilePaths []string) error
 			return err
 		}
 
-		libraryPiece := cutUnnecessaryFromLibraryPiece(string(libraryPieceBytes))
+		rawLibraryPiece := string(libraryPieceBytes)
+		if !shouldIncludeLibraryPiece(rawLibraryPiece) {
+			continue
+		}
+
+		libraryPiece := cutUnnecessaryFromLibraryPiece(rawLibraryPiece)
 
 		_, err = outputFile.WriteString(libraryPiece)
 		if err != nil {
@@ -132,6 +138,10 @@ func cutUnnecessaryFromLibraryPiece(libraryPiece string) string {
 	libraryPiece = regexp.MustCompile("data_structures\\.").ReplaceAllString(libraryPiece, "")
 
 	return libraryPiece
+}
+
+func shouldIncludeLibraryPiece(rawLibraryPiece string) bool {
+	return !strings.Contains(rawLibraryPiece, "@DONT_INCLUDE_IN_TEMPLATE")
 }
 
 func logOutputFilePart(part string) {
