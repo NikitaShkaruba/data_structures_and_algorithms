@@ -53,3 +53,28 @@ func TestPow(t *testing.T) {
 	assert.Equal(t, 5.832000000000001, Pow(1.8, 3.0))
 	assert.Equal(t, 13.064889045094622, Pow(3.4, 2.1))
 }
+
+func TestCeil(t *testing.T) {
+	assert.Equal(t, 2, Ceil(1.1))
+	assert.Equal(t, 1, Ceil(0.9))
+	assert.Equal(t, 1, Ceil(0.5))
+	assert.Equal(t, 1, Ceil(0.3))
+	assert.Equal(t, 1, Ceil(0.1))
+	assert.Equal(t, 0, Ceil(-0.1))
+	assert.Equal(t, 0, Ceil(-0.3))
+	assert.Equal(t, 0, Ceil(-0.5))
+	assert.Equal(t, 0, Ceil(-0.9))
+	assert.Equal(t, -1, Ceil(-1.1))
+}
+func TestFloor(t *testing.T) {
+	assert.Equal(t, 1, Floor(1.1))
+	assert.Equal(t, 0, Floor(0.9))
+	assert.Equal(t, 0, Floor(0.5))
+	assert.Equal(t, 0, Floor(0.3))
+	assert.Equal(t, 0, Floor(0.1))
+	assert.Equal(t, -1, Floor(-0.1))
+	assert.Equal(t, -1, Floor(-0.3))
+	assert.Equal(t, -1, Floor(-0.5))
+	assert.Equal(t, -1, Floor(-0.9))
+	assert.Equal(t, -2, Floor(-1.1))
+}
