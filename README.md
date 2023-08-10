@@ -26,5 +26,5 @@ In order to use it you need to specify a lot of error-prone code
 
 - [build/leetcode_library.template](build/leetcode_library.template) - template I copy-paste to every solution, containing all the generic data structures and generic misc functions
 - [docs](docs) - directory with algorithm and data structure explanations necessary for leetcode
-- [src](src) - directory with generic data structures and generic misc functions necessary for leetcode. Each separate file gets concatenated to [leetcode_library.template](./build/leetcode_library.template)
+- [src](src) - directory with data structures, algorithms, and misc functions necessary for leetcode. Each separate file gets concatenated to [leetcode_library.template](./build/leetcode_library.template)
 - [tools](tools) - directory that helps to maintain [leetcode_library.template](./build/leetcode_library.template)
