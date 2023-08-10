@@ -15,11 +15,11 @@ Also, I have all the algorithm and data structures explained in [docs](docs) dir
 Those explanations contain some code snippets I haven't included in [leetcode_library.template](./build/leetcode_library.template),
 because I think you should quickly code them yourself, and don't rely on the library heavily.
 
-### My problems with standard go library
+### Why standard go library is not enough for leetcode
 
-- No generics support - I've defined too much `Max`, `Min`, `Abs`, `...` functions in my solutions manually
-- Awful heap interface - who came up with [this sh*t](https://pkg.go.dev/container/heap#example-package-IntHeap)??? It's too complicated!!!
-In order to use it you need to specify a lot of error-prone code
+- No generics support - I've manually defined too much `Max`, `Min`, `Abs`, `...` functions in my solutions.
+- Awful [heap interface](https://pkg.go.dev/container/heap#example-package-IntHeap).
+It doesn't work out of the box - you need to define a lot of error-prone code, and it's inconvenient to use afterwards.
 - Not enough data structures. There is no `AVL tree`, `Trie`, `Union-find`, ...
 
 ### Project structure
