@@ -13,4 +13,4 @@ For example, let's say that we were concerned only about the 2nd bit (0 indexed 
 
 More about XOR:
 - An easy way to think about XOR: if you do `x XOR 0`, then nothing changes with `x`. If you do `x XOR 1`, then `x` is flipped. It works both ways, so `1 XOR x` flips x, and `0 xor X` doesn't.
-- If you xor a value with another value twice, nothing changes `X XOR 12345 XOR 12345 = X`, because all the bits that need to be flipped, will be flipped twice and become the same thgey were.
+- If you xor a value with another value twice, nothing changes `X XOR 12345 XOR 12345 = X`, because all the bits that need to be flipped, will be flipped twice and become the same thgey were. This [problem](https://leetcode.com/problems/single-number/) can be solved with this rule.
