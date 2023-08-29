@@ -11,4 +11,5 @@ The brute force approach would be to look at every pair of meetings and check if
 We can improve on this by observing that if there is a conflict, then the conflicting meetings would be adjacent if we sorted the input.
 If we sort the meetings by their start time, then the meetings are in the order in which they should be attended.
 If the i'th meeting starts before the (i-1)'th meeting ends, then there is a conflict, because you would need to leave (i-1)'th meeting early to be on time for the i'th meeting.
+
 The main take of this approach: if you want to  find if intervals intersect, sort them, and iterate from left to right.
